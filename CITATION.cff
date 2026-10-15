@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this data set or code, please cite the paper and this repository."
+title: "Knin e-Visitor tourism data and analysis, 2016-2026"
+authors:
+  - family-names: Uroš
+    given-names: Vedran
+    orcid: https://orcid.org/0009-0007-6568-0827
+    affiliation: "University of Applied Sciences Marko Marulić in Knin; Faculty of Organization and Informatics, University of Zagreb"
+date-released: 2026-10-16
+version: 1.0.0
+repository-code: https://github.com/vedranu/knin-evisitor-tourism
+license: MIT
+keywords: [tourism demand, e-Visitor, seasonality, Gini coefficient, SARIMA, Croatia, Knin]

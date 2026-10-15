@@ -1,0 +1,547 @@
+{
+  "cagr": {
+    "arrivals_2016_2025": 0.17895673082533858,
+    "nights_2016_2025": 0.15414599651441385,
+    "arrivals_2021_2025": 0.345322959169013,
+    "nights_2021_2025": 0.3183633264880006
+  },
+  "stl_strength": {
+    "arrivals": {
+      "F_T": 0.7530245033763228,
+      "F_S": 0.8166044452893898
+    },
+    "nights": {
+      "F_T": 0.6747966078810286,
+      "F_S": 0.8136054517708645
+    }
+  },
+  "stl_trend_annual_growth_post2021": 0.294825086019328,
+  "stl_seasonal_amplitude_ratio": 13.028166201011738,
+  "gini_trend": {
+    "kendall_tau": -0.28888888888888886,
+    "p": 0.2912483465608466,
+    "ols_slope_per_year": -0.0032296683418886582,
+    "ols_p": 0.4735128347558641,
+    "gini_2016": 0.40930674264007605,
+    "gini_2025": 0.3806247976691486
+  },
+  "gini_trend_nights": {
+    "kendall_tau": 0.022222222222222223,
+    "p": 1.0,
+    "gini_2016": 0.4243827160493827,
+    "gini_2025": 0.3972766364070712
+  },
+  "hhi_trend_foreign": {
+    "kendall_tau": 0.15555555555555553,
+    "p": 0.6006536596119929,
+    "hhi_2016": 0.06641114866828891,
+    "hhi_2025": 0.07043853565475748
+  },
+  "breaks": {
+    "dates_by_k": {
+      "1": [
+        "2023-02-01"
+      ],
+      "2": [
+        "2018-05-01",
+        "2023-02-01"
+      ],
+      "3": [
+        "2018-05-01",
+        "2022-07-01",
+        "2024-03-01"
+      ]
+    },
+    "bic": {
+      "0": -82.86346798472445,
+      "1": -216.23453703619356,
+      "2": -225.19578212831672,
+      "3": -227.33722376195396
+    },
+    "selected_k": 3
+  },
+  "chow": {
+    "2020-03-01": {
+      "F": 28.140406783307885,
+      "p": 8.126166406441371e-11
+    },
+    "2021-06-01": {
+      "F": 18.43742150176469,
+      "p": 9.619794605342236e-08
+    },
+    "2023-01-01": {
+      "F": 17.87799024039679,
+      "p": 1.4839854722836776e-07
+    }
+  },
+  "pre_covid_trend_annual_growth": 0.1683094039357944,
+  "post_covid_trend_annual_growth": 0.32665928957720713,
+  "post_covid_trend_se_annual": 0.014951748295366689,
+  "adf_log": {
+    "stat": -1.8560858081009073,
+    "p": 0.6771074194986874
+  },
+  "kpss_log": {
+    "stat": 0.0978222736799505,
+    "p": 0.1
+  },
+  "adf_d1D12": {
+    "stat": -4.25632468861672,
+    "p": 0.0005282678628019445
+  },
+  "models_arrivals": {
+    "SARIMA": {
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "seasonal_order": [
+        0,
+        1,
+        1,
+        12
+      ],
+      "aic": 136.74407765324423,
+      "ljungbox_p12": 0.8384719018300557,
+      "ljungbox_p24": 0.3300883690288363
+    },
+    "ETS": {
+      "aic": -167.01802487038114,
+      "params": {
+        "smoothing_level": 0.34408453444104126,
+        "smoothing_trend": 0.0,
+        "smoothing_seasonal": 0.0,
+        "damping_trend": 0.995
+      }
+    }
+  },
+  "models_nights": {
+    "SARIMA": {
+      "order": [
+        1,
+        1,
+        1
+      ],
+      "seasonal_order": [
+        1,
+        1,
+        1,
+        12
+      ],
+      "aic": 138.4150317194927,
+      "ljungbox_p12": 0.28366761635253157,
+      "ljungbox_p24": 0.07185118870369452
+    },
+    "ETS": {
+      "aic": -152.10002183994948,
+      "params": {
+        "smoothing_level": 0.31489555199362446,
+        "smoothing_trend": 0.0,
+        "smoothing_seasonal": 0.0,
+        "damping_trend": 0.995
+      }
+    }
+  },
+  "accuracy_arrivals": {
+    "MAPE": {
+      "SARIMA": 26.879,
+      "ETS(A,Ad,A) on log": 24.804,
+      "Holt-Winters (A,Ad,M)": 18.927,
+      "Seasonal naive": 20.965,
+      "Combination (mean)": 23.142
+    },
+    "RMSE": {
+      "SARIMA": 235.941,
+      "ETS(A,Ad,A) on log": 185.436,
+      "Holt-Winters (A,Ad,M)": 192.318,
+      "Seasonal naive": 137.044,
+      "Combination (mean)": 200.004
+    },
+    "MASE": {
+      "SARIMA": 2.229,
+      "ETS(A,Ad,A) on log": 1.94,
+      "Holt-Winters (A,Ad,M)": 1.674,
+      "Seasonal naive": 1.498,
+      "Combination (mean)": 1.918
+    },
+    "bias_pct": {
+      "SARIMA": 7.831,
+      "ETS(A,Ad,A) on log": -3.632,
+      "Holt-Winters (A,Ad,M)": 8.767,
+      "Seasonal naive": -6.265,
+      "Combination (mean)": 4.322
+    }
+  },
+  "accuracy_nights": {
+    "MAPE": {
+      "SARIMA": 27.028,
+      "ETS(A,Ad,A) on log": 24.811,
+      "Holt-Winters (A,Ad,M)": 35.155,
+      "Seasonal naive": 25.267,
+      "Combination (mean)": 27.061
+    },
+    "RMSE": {
+      "SARIMA": 370.523,
+      "ETS(A,Ad,A) on log": 347.437,
+      "Holt-Winters (A,Ad,M)": 539.683,
+      "Seasonal naive": 342.265,
+      "Combination (mean)": 405.811
+    },
+    "MASE": {
+      "SARIMA": 2.152,
+      "ETS(A,Ad,A) on log": 1.988,
+      "Holt-Winters (A,Ad,M)": 3.192,
+      "Seasonal naive": 1.84,
+      "Combination (mean)": 2.325
+    },
+    "bias_pct": {
+      "SARIMA": -23.954,
+      "ETS(A,Ad,A) on log": -20.959,
+      "Holt-Winters (A,Ad,M)": -36.404,
+      "Seasonal naive": -19.991,
+      "Combination (mean)": -27.106
+    }
+  },
+  "projection_annual_arrivals": {
+    "SARIMA": {
+      "2026": 6198.0,
+      "2027": 7490.0,
+      "2028": 8818.0,
+      "2029": 10380.0,
+      "2030": 12219.0
+    },
+    "SARIMA_lo80": {
+      "2026": 5826.0,
+      "2027": 3705.0,
+      "2028": 3557.0,
+      "2029": 3362.0,
+      "2030": 3132.0
+    },
+    "SARIMA_hi80": {
+      "2026": 6857.0,
+      "2027": 15153.0,
+      "2028": 21870.0,
+      "2029": 32053.0,
+      "2030": 47667.0
+    },
+    "ETS_log": {
+      "2026": 6073.0,
+      "2027": 5812.0,
+      "2028": 5812.0,
+      "2029": 5812.0,
+      "2030": 5812.0
+    },
+    "HoltWinters": {
+      "2026": 6068.0,
+      "2027": 5764.0,
+      "2028": 5764.0,
+      "2029": 5764.0,
+      "2030": 5764.0
+    },
+    "Combination": {
+      "2026": 6113.0,
+      "2027": 6355.0,
+      "2028": 6798.0,
+      "2029": 7318.0,
+      "2030": 7931.0
+    }
+  },
+  "projection_annual_nights": {
+    "SARIMA": {
+      "2026": 13165.0,
+      "2027": 15361.0,
+      "2028": 17952.0,
+      "2029": 20879.0,
+      "2030": 24247.0
+    },
+    "SARIMA_lo80": {
+      "2026": 12369.0,
+      "2027": 8179.0,
+      "2028": 8736.0,
+      "2029": 9495.0,
+      "2030": 10307.0
+    },
+    "SARIMA_hi80": {
+      "2026": 14571.0,
+      "2027": 28854.0,
+      "2028": 36886.0,
+      "2029": 45906.0,
+      "2030": 57032.0
+    },
+    "ETS_log": {
+      "2026": 13033.0,
+      "2027": 13296.0,
+      "2028": 14293.0,
+      "2029": 15300.0,
+      "2030": 16312.0
+    },
+    "HoltWinters": {
+      "2026": 12810.0,
+      "2027": 12139.0,
+      "2028": 12139.0,
+      "2029": 12139.0,
+      "2030": 12139.0
+    },
+    "Combination": {
+      "2026": 13003.0,
+      "2027": 13599.0,
+      "2028": 14795.0,
+      "2029": 16106.0,
+      "2030": 17566.0
+    }
+  },
+  "logistic": {
+    "K": 21889.99847291682,
+    "r": 0.237807063851872,
+    "t0": 2029.4263232590295,
+    "K_se": 50259.80338648118
+  },
+  "logistic_path": {
+    "2016": 863.2266118317918,
+    "2017": 1083.5014148319399,
+    "2018": 1356.3592577234947,
+    "2019": 1692.3418314600324,
+    "2020": 2103.0264717406703,
+    "2021": 2600.541018644635,
+    "2022": 3196.7380328893664,
+    "2023": 3901.9694625766006,
+    "2024": 4723.469141073053,
+    "2025": 5663.468935756082,
+    "2026": 6717.33490886472,
+    "2027": 7872.16705884555,
+    "2028": 9106.377507782232,
+    "2029": 10390.657278560215,
+    "2030": 11690.425837345181
+  },
+  "offseason_cagr_2016_2025": 0.14791681447583382,
+  "peak_cagr_2016_2025": 0.17622226000838603,
+  "offseason_share_2016": 0.18233618233618235,
+  "offseason_share_2025": 0.14341210747814828,
+  "totals": {
+    "months": 129,
+    "arrivals_total": 33492,
+    "nights_total": 72758,
+    "arrivals_2016": 1404,
+    "arrivals_2025": 6178,
+    "nights_2016": 3456,
+    "nights_2025": 12558,
+    "foreign_share_arr_2016": 0.4943019943019943,
+    "foreign_share_arr_2025": 0.6325671738426676,
+    "alos_2016": 2.4615384615384617,
+    "alos_2025": 2.0326966655875687,
+    "n_countries": 75,
+    "countries_gt0_2025": 59
+  },
+  "annual": [
+    {
+      "date": 2016,
+      "arrivals": 1404,
+      "nights": 3456,
+      "domestic_arr": 710,
+      "foreign_arr": 694,
+      "domestic_nights": 1865,
+      "foreign_nights": 1591,
+      "months": 12,
+      "ALOS": 2.4615,
+      "foreign_share_arr": 0.4943,
+      "foreign_share_nights": 0.4604,
+      "yoy_arr": NaN,
+      "yoy_nights": NaN,
+      "arr_JanSep": 1263,
+      "nights_JanSep": 3098,
+      "yoy_arr_JanSep": NaN,
+      "yoy_nights_JanSep": NaN
+    },
+    {
+      "date": 2017,
+      "arrivals": 1645,
+      "nights": 4177,
+      "domestic_arr": 578,
+      "foreign_arr": 1067,
+      "domestic_nights": 1548,
+      "foreign_nights": 2629,
+      "months": 12,
+      "ALOS": 2.5392,
+      "foreign_share_arr": 0.6486,
+      "foreign_share_nights": 0.6294,
+      "yoy_arr": 0.1717,
+      "yoy_nights": 0.2086,
+      "arr_JanSep": 1467,
+      "nights_JanSep": 3546,
+      "yoy_arr_JanSep": 0.1615,
+      "yoy_nights_JanSep": 0.1446
+    },
+    {
+      "date": 2018,
+      "arrivals": 1565,
+      "nights": 4129,
+      "domestic_arr": 588,
+      "foreign_arr": 977,
+      "domestic_nights": 1664,
+      "foreign_nights": 2465,
+      "months": 12,
+      "ALOS": 2.6383,
+      "foreign_share_arr": 0.6243,
+      "foreign_share_nights": 0.597,
+      "yoy_arr": -0.0486,
+      "yoy_nights": -0.0115,
+      "arr_JanSep": 1338,
+      "nights_JanSep": 3338,
+      "yoy_arr_JanSep": -0.0879,
+      "yoy_nights_JanSep": -0.0587
+    },
+    {
+      "date": 2019,
+      "arrivals": 2003,
+      "nights": 4964,
+      "domestic_arr": 647,
+      "foreign_arr": 1356,
+      "domestic_nights": 1572,
+      "foreign_nights": 3392,
+      "months": 12,
+      "ALOS": 2.4783,
+      "foreign_share_arr": 0.677,
+      "foreign_share_nights": 0.6833,
+      "yoy_arr": 0.2799,
+      "yoy_nights": 0.2022,
+      "arr_JanSep": 1685,
+      "nights_JanSep": 4124,
+      "yoy_arr_JanSep": 0.2593,
+      "yoy_nights_JanSep": 0.2355
+    },
+    {
+      "date": 2020,
+      "arrivals": 1227,
+      "nights": 4432,
+      "domestic_arr": 587,
+      "foreign_arr": 640,
+      "domestic_nights": 1660,
+      "foreign_nights": 2772,
+      "months": 12,
+      "ALOS": 3.6121,
+      "foreign_share_arr": 0.5216,
+      "foreign_share_nights": 0.6255,
+      "yoy_arr": -0.3874,
+      "yoy_nights": -0.1072,
+      "arr_JanSep": 1061,
+      "nights_JanSep": 3861,
+      "yoy_arr_JanSep": -0.3703,
+      "yoy_nights_JanSep": -0.0638
+    },
+    {
+      "date": 2021,
+      "arrivals": 1886,
+      "nights": 4157,
+      "domestic_arr": 651,
+      "foreign_arr": 1235,
+      "domestic_nights": 1274,
+      "foreign_nights": 2883,
+      "months": 12,
+      "ALOS": 2.2041,
+      "foreign_share_arr": 0.6548,
+      "foreign_share_nights": 0.6935,
+      "yoy_arr": 0.5371,
+      "yoy_nights": -0.062,
+      "arr_JanSep": 1629,
+      "nights_JanSep": 3592,
+      "yoy_arr_JanSep": 0.5353,
+      "yoy_nights_JanSep": -0.0697
+    },
+    {
+      "date": 2022,
+      "arrivals": 2503,
+      "nights": 5755,
+      "domestic_arr": 834,
+      "foreign_arr": 1669,
+      "domestic_nights": 1814,
+      "foreign_nights": 3941,
+      "months": 12,
+      "ALOS": 2.2992,
+      "foreign_share_arr": 0.6668,
+      "foreign_share_nights": 0.6848,
+      "yoy_arr": 0.3271,
+      "yoy_nights": 0.3844,
+      "arr_JanSep": 2186,
+      "nights_JanSep": 5032,
+      "yoy_arr_JanSep": 0.3419,
+      "yoy_nights_JanSep": 0.4009
+    },
+    {
+      "date": 2023,
+      "arrivals": 3977,
+      "nights": 7566,
+      "domestic_arr": 1235,
+      "foreign_arr": 2742,
+      "domestic_nights": 2083,
+      "foreign_nights": 5483,
+      "months": 12,
+      "ALOS": 1.9024,
+      "foreign_share_arr": 0.6895,
+      "foreign_share_nights": 0.7247,
+      "yoy_arr": 0.5889,
+      "yoy_nights": 0.3147,
+      "arr_JanSep": 3434,
+      "nights_JanSep": 6466,
+      "yoy_arr_JanSep": 0.5709,
+      "yoy_nights_JanSep": 0.285
+    },
+    {
+      "date": 2024,
+      "arrivals": 5758,
+      "nights": 10236,
+      "domestic_arr": 1887,
+      "foreign_arr": 3871,
+      "domestic_nights": 3236,
+      "foreign_nights": 7000,
+      "months": 12,
+      "ALOS": 1.7777,
+      "foreign_share_arr": 0.6723,
+      "foreign_share_nights": 0.6839,
+      "yoy_arr": 0.4478,
+      "yoy_nights": 0.3529,
+      "arr_JanSep": 5044,
+      "nights_JanSep": 8875,
+      "yoy_arr_JanSep": 0.4688,
+      "yoy_nights_JanSep": 0.3726
+    },
+    {
+      "date": 2025,
+      "arrivals": 6178,
+      "nights": 12558,
+      "domestic_arr": 2270,
+      "foreign_arr": 3908,
+      "domestic_nights": 4379,
+      "foreign_nights": 8179,
+      "months": 12,
+      "ALOS": 2.0327,
+      "foreign_share_arr": 0.6326,
+      "foreign_share_nights": 0.6513,
+      "yoy_arr": 0.0729,
+      "yoy_nights": 0.2268,
+      "arr_JanSep": 5335,
+      "nights_JanSep": 10830,
+      "yoy_arr_JanSep": 0.0577,
+      "yoy_nights_JanSep": 0.2203
+    },
+    {
+      "date": 2026,
+      "arrivals": 5346,
+      "nights": 11328,
+      "domestic_arr": 2324,
+      "foreign_arr": 3022,
+      "domestic_nights": 4912,
+      "foreign_nights": 6416,
+      "months": 9,
+      "ALOS": 2.119,
+      "foreign_share_arr": 0.5653,
+      "foreign_share_nights": 0.5664,
+      "yoy_arr": -0.1347,
+      "yoy_nights": -0.0979,
+      "arr_JanSep": 5346,
+      "nights_JanSep": 11328,
+      "yoy_arr_JanSep": 0.0021,
+      "yoy_nights_JanSep": 0.046
+    }
+  ]
+}
