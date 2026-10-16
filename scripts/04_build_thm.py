@@ -10,7 +10,23 @@ from docx.oxml import OxmlElement
 
 HERE = os.path.dirname(os.path.abspath(__file__)); P = os.path.join(HERE, "..", "paper")
 os.chdir(P)
-subprocess.run(["pandoc", "paper_thm_body.md", "-o", "_thm_body.docx", "--resource-path=.", "--columns=60", "--reference-doc=thm_reference.docx"], check=True)
+ANON = os.environ.get("ANON") == "1"   # ANON=1: anonymised manuscript for blind review
+SRC = "paper_thm_body.md"
+if ANON:
+    import re
+    txt = open(SRC, encoding="utf-8").read()
+    # drop the acknowledgements section (names institutions and co-author roles)
+    txt = re.sub(r"# ACKNOWLEDGEMENTS\n.*?(?=\n# )", "", txt, flags=re.S)
+    # self-citation of the data/code archive
+    txt = txt.replace("code and data are openly available (Uroš et al., 2026)",
+                      "code and data are archived in a public repository (Authors, 2026; DOI provided at acceptance)")
+    txt = txt.replace("(Uroš et al., 2026)", "(Authors, 2026)")
+    txt = re.sub(r"^Uroš, V\., Ćaćić, M\., & Sorić, I\. \(2026\)\..*?\n\n", "", txt, flags=re.M | re.S)
+    txt = re.sub(r"(# REFERENCES\n\n)", r"\1Authors. (2026). *Data set and code* [Details omitted for blind review].\n\n", txt)
+    assert "Uroš" not in txt and "github.com" not in txt and "vedranu" not in txt, "identifying text remains"
+    SRC = "_thm_body_anon.md"; open(SRC, "w", encoding="utf-8").write(txt)
+subprocess.run(["pandoc", SRC, "-o", "_thm_body.docx", "--resource-path=.", "--columns=60", "--reference-doc=thm_reference.docx"], check=True)
+if ANON: os.remove(SRC)
 
 TITLE = 'FROM TRANSIT STOP TO DESTINATION? A DECADE OF E-VISITOR DATA ON TOURISM IN KNIN, CROATIA'
 AUTHORS = [
@@ -70,7 +86,7 @@ def add_p(cell, text, bold=False, italic=False, size=9, after=2, prefix_italic=N
     r = p.add_run(text); r.bold = bold; r.italic = italic; r.font.size = Pt(size); r.font.name = "Times New Roman"
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY if cell is right else WD_ALIGN_PARAGRAPH.LEFT
     return p
-for a in AUTHORS:
+for a in ([] if ANON else AUTHORS):
     add_p(left, a["name"] + (", " if a["corr"] else ""), bold=True, size=10, after=0)
     if a["corr"]: add_p(left, "Corresponding Author", size=9, after=0)
     add_p(left, a["orcid"], size=9, after=0)
@@ -85,8 +101,8 @@ kp = add_p(right, KEYWORDS, size=9, after=0); r0 = kp.runs[0]; r0.text = " " + K
 para_before(first, "")
 
 # biographies at end: one-column bordered table
-bt = doc.add_table(rows=len(BIOS), cols=1); bt.style = doc.styles["Table Grid"] if "Table Grid" in [s.name for s in doc.styles] else bt.style
-for i, b in enumerate(BIOS):
+bt = doc.add_table(rows=0 if ANON else len(BIOS), cols=1); bt.style = doc.styles["Table Grid"] if "Table Grid" in [s.name for s in doc.styles] else bt.style
+for i, b in enumerate([] if ANON else BIOS):
     c = bt.rows[i].cells[0]; c.paragraphs[0].text = ""
     p = c.paragraphs[0]; name, rest = b.split(" is ", 1)
     r = p.add_run(name); r.bold = True; r.font.size = Pt(9); r.font.name = "Times New Roman"
@@ -97,5 +113,6 @@ for p in doc.paragraphs:
     if (t.startswith("Table ") or t.startswith("Figure ")) and ":" in t[:12]:
         p.paragraph_format.keep_with_next = True
 # remove page numbers if any (none in reference) and save
-doc.save("Knin_THM_submission.docx"); os.remove("_thm_body.docx")
-print("written paper/Knin_THM_submission.docx")
+OUT = "Knin_THM_submission_anonymous.docx" if ANON else "Knin_THM_submission.docx"
+doc.save(OUT); os.remove("_thm_body.docx")
+print("written paper/" + OUT)

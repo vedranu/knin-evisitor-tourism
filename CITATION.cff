@@ -15,15 +15,15 @@ authors:
     orcid: https://orcid.org/0009-0009-1699-1973
     affiliation: "Tourist Board of the Town of Knin; University of Zadar"
 date-released: 2026-10-16
-version: 1.0.0
+version: 1.0.1
 repository-code: https://github.com/vedranu/knin-evisitor-tourism
-doi: 10.5281/zenodo.23426165
+doi: 10.5281/zenodo.23426318
 identifiers:
   - type: doi
     value: 10.5281/zenodo.23426164
     description: Concept DOI (all versions)
   - type: doi
-    value: 10.5281/zenodo.23426165
-    description: Version 1.0.0
+    value: 10.5281/zenodo.23426318
+    description: Version 1.0.1
 license: MIT
 keywords: [tourism demand, e-Visitor, seasonality, Gini coefficient, SARIMA, Croatia, Knin]

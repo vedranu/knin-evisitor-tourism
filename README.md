@@ -1,6 +1,6 @@
 # Knin e-Visitor tourism data and analysis, 2016-2026
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23426165.svg)](https://doi.org/10.5281/zenodo.23426165)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23426318.svg)](https://doi.org/10.5281/zenodo.23426318)
 
 Reproducible data set and code for the paper
 
@@ -53,9 +53,9 @@ Python 3.11+ is required. Tested with Python 3.13, pandas 2.x, statsmodels 0.15,
 
 ## Citation
 
-Archived on Zenodo: version 1.0.0 DOI https://doi.org/10.5281/zenodo.23426165 (concept DOI for all versions: https://doi.org/10.5281/zenodo.23426164).
+Archived on Zenodo: version 1.0.1 DOI https://doi.org/10.5281/zenodo.23426318 (concept DOI for all versions: https://doi.org/10.5281/zenodo.23426164).
 
-> Uroš, V., Ćaćić, M., & Sorić, I. (2026). *Knin e-Visitor tourism data and analysis, 2016-2026: data, code and figures* (Version 1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23426165
+> Uroš, V., Ćaćić, M., & Sorić, I. (2026). *Knin e-Visitor tourism data and analysis, 2016-2026: data, code and figures* (Version 1.0.1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23426318
 
 See also `CITATION.cff`.
 
