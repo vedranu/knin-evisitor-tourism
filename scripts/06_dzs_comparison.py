@@ -1,68 +1,54 @@
 """
 06_dzs_comparison.py - Knin vs Šibenik-Knin County vs Croatia, monthly arrivals and overnight stays.
-Data source: Croatian Bureau of Statistics PxWeb table BS_TU12 ("Dolasci i noćenja domaćih i stranih turista,
-županije, mjesečno"). The script first tries to download the table through the PxWeb API (POST); if the
-network is not available it reads data/external/dzs_tu12.csv (the same query exported manually from
-https://web.dzs.hr/PXWeb/ -> Turizam -> Dolasci i noćenja ... -> Tablica 1.2, format CSV).
-Outputs: outputs/dzs_comparison.csv, outputs/dzs_comparison.json, figures/bw/rev_dzs_index.png
+Source: Croatian Bureau of Statistics, PxWeb table BS_TU12 "Dolasci i noćenja domaćih i stranih turista,
+županije, mjesečno" (commercial accommodation, all tourists), retrieved 16 Oct 2026 through the PxWeb API
+(query in data/external/dzs_tu12_query.json); saved as data/external/dzs_tu12.csv
+(columns: county code 00 = Croatia, 15 = Šibenik-Knin; month; type 1 = arrivals, 2 = nights; year; value).
+Outputs: outputs/dzs_comparison_annual.csv, outputs/dzs_comparison.json, figures/bw/rev_dzs_index.png
 """
-import os, json, io, sys
+import os, json
 import numpy as np, pandas as pd
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
+import statsmodels.api as sm
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."); P = lambda *a: os.path.join(ROOT, *a)
-URL = "https://web.dzs.hr/PXWeb/api/v1/hr/Turizam/Dolasci%20i%20no%C4%87enja%20turista%20u%20komercijalnim%20smje%C5%A1tajnim%20objektima/BS_TU12.px"
-QUERY = {"query": [
-    {"code": "Županije", "selection": {"filter": "item", "values": ["00", "15"]}},
-    {"code": "Mjesec", "selection": {"filter": "item", "values": [f"{m:02d}" for m in range(1, 13)]}},
-    {"code": "Tip", "selection": {"filter": "item", "values": ["1", "2"]}},
-    {"code": "Godina", "selection": {"filter": "item", "values": [str(y) for y in range(2016, 2027)]}},
-    {"code": "Turisti", "selection": {"filter": "item", "values": ["0"]}}],
-    "response": {"format": "csv"}}
-dst = P("data/external/dzs_tu12.csv"); os.makedirs(P("data/external"), exist_ok=True)
-if not os.path.exists(dst):
-    try:
-        import requests
-        r = requests.post(URL, json=QUERY, timeout=60); r.raise_for_status()
-        open(dst, "wb").write(r.content); print("downloaded", dst)
-    except Exception as e:
-        sys.exit(f"DZS data not available: {e}\nExport the table manually to {dst} (see docstring).")
-raw = pd.read_csv(dst, encoding="utf-8-sig")
-print(raw.head()); print(raw.columns.tolist())
-# PxWeb CSV layout: first columns are the row dimensions, remaining columns the pivoted dimension(s).
-# Normalise into long format: county, year, month, type, value.
-id_cols = [c for c in raw.columns if raw[c].dtype == object][:4]
-long = raw.melt(id_vars=id_cols, var_name="col", value_name="value")
-long["value"] = pd.to_numeric(long["value"].astype(str).str.replace(".", "", regex=False).str.replace(",", ".", regex=False), errors="coerce")
-long.to_csv(P("outputs/dzs_tu12_long.csv"), index=False)
-print("Long table written; adapt the column mapping below to the exported layout if needed.")
-# ---- mapping (adjust if the export layout differs) ----
-col_map = {c: c for c in long.columns}
-try:
-    cty = [c for c in long.columns if "upanij" in c][0]; mon = [c for c in long.columns if "jesec" in c][0]
-    typ = [c for c in long.columns if c.lower().startswith("tip")][0]
-    yr = [c for c in long.columns if "odina" in c][0] if any("odina" in c for c in long.columns) else "col"
-except IndexError:
-    sys.exit("Could not identify columns automatically; edit col_map in the script.")
-roman = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8, "IX": 9, "X": 10, "XI": 11, "XII": 12}
-long["month"] = long[mon].map(roman).fillna(pd.to_numeric(long[mon], errors="coerce"))
-long["year"] = pd.to_numeric(long[yr].astype(str).str.extract(r"(\d{4})")[0], errors="coerce")
-long = long.dropna(subset=["month", "year"])
-long["area"] = np.where(long[cty].str.contains("HRVATSKA"), "Croatia", "Sibenik-Knin County")
-long["type"] = np.where(long[typ].str.lower().str.startswith("dol"), "arrivals", "nights")
-piv = long.pivot_table(index=["year", "month"], columns=["area", "type"], values="value", aggfunc="sum")
-piv.columns = [f"{a}_{t}" for a, t in piv.columns]; piv = piv.reset_index()
-piv["date"] = pd.to_datetime(dict(year=piv.year, month=piv.month, day=1))
-knin = pd.read_csv(P("data/processed/monthly_totals.csv"), parse_dates=["date"])[["date", "arrivals", "nights"]].rename(columns={"arrivals": "Knin_arrivals", "nights": "Knin_nights"})
-df = piv.merge(knin, on="date", how="inner").set_index("date").sort_index()
-df.to_csv(P("outputs/dzs_comparison.csv"))
-# annual indices 2019 = 100 and growth 2019->2025, 2022->2025
-ann = df.groupby(df.index.year).sum(numeric_only=True).drop(columns=["year", "month"], errors="ignore")
-idx = ann.div(ann.loc[2019]) * 100
-res = {"index_2019_100": idx.round(1).to_dict(), "growth_2019_2025_pct": ((ann.loc[2025] / ann.loc[2019] - 1) * 100).round(1).to_dict(),
-       "growth_2022_2025_pct": ((ann.loc[2025] / ann.loc[2022] - 1) * 100).round(1).to_dict()}
-json.dump(res, open(P("outputs/dzs_comparison.json"), "w"), indent=2); print(json.dumps(res, indent=1))
-fig, ax = plt.subplots(figsize=(7, 3.5))
-for col, ls, mk in [("Knin_arrivals", "-", "o"), ("Sibenik-Knin County_arrivals", "--", "s"), ("Croatia_arrivals", ":", "^")]:
-    ax.plot(idx.index, idx[col], color="#000000", ls=ls, marker=mk, ms=4, label=col.replace("_arrivals", "").replace("Sibenik", "Šibenik"))
-ax.axhline(100, color="#888888", lw=0.8); ax.set_ylabel("Arrivals, index 2019 = 100"); ax.legend(fontsize=8)
-fig.savefig(P("figures/bw/rev_dzs_index.png"), dpi=300, bbox_inches="tight"); print("DONE")
+plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 9, "axes.spines.top": False, "axes.spines.right": False, "axes.grid": True, "grid.color": "#e6e5e1", "axes.axisbelow": True, "legend.frameon": False})
+d = pd.read_csv(P("data/external/dzs_tu12.csv"), sep=";", dtype=str)
+d["value"] = pd.to_numeric(d["value"], errors="coerce"); d = d.dropna(subset=["value"])
+d["area"] = d.county.map({"00": "Croatia", "15": "County"}); d["type"] = d.type.map({"1": "arrivals", "2": "nights"})
+d["date"] = pd.to_datetime(dict(year=d.year.astype(int), month=d.month.astype(int), day=1))
+w = d.pivot_table(index="date", columns=["area", "type"], values="value").sort_index()
+w.columns = [f"{a}_{t}" for a, t in w.columns]
+knin = pd.read_csv(P("data/processed/monthly_totals.csv"), parse_dates=["date"]).set_index("date")[["arrivals", "nights"]].rename(columns=lambda c: f"Knin_{c}")
+df = w.join(knin, how="inner")   # Jan 2016 - Aug 2026 (DZS 2026 available to August)
+df.to_csv(P("outputs/dzs_comparison_monthly.csv"))
+full = df[df.index.year <= 2025]
+ann = full.groupby(full.index.year).sum()
+idx = (ann.div(ann.loc[2019]) * 100).round(1)
+R = {"index_2019_100": idx.to_dict(),
+     "growth_2016_2019_pct": ((ann.loc[2019] / ann.loc[2016] - 1) * 100).round(1).to_dict(),
+     "growth_2019_2025_pct": ((ann.loc[2025] / ann.loc[2019] - 1) * 100).round(1).to_dict(),
+     "growth_2022_2025_pct": ((ann.loc[2025] / ann.loc[2022] - 1) * 100).round(1).to_dict(),
+     "cagr_2021_2025_pct": (((ann.loc[2025] / ann.loc[2021]) ** 0.25 - 1) * 100).round(1).to_dict()}
+# Jan-Aug 2026 vs Jan-Aug 2025
+ja = df[(df.index.month <= 8) & (df.index.year >= 2025)]; ja = ja.groupby(ja.index.year).sum()
+R["growth_JanAug_2026_vs_2025_pct"] = ((ja.loc[2026] / ja.loc[2025] - 1) * 100).round(1).to_dict()
+# Knin share of county arrivals (%) by year
+share = (ann["Knin_arrivals"] / ann["County_arrivals"] * 100).round(2); R["knin_share_of_county_arrivals_pct"] = share.to_dict()
+share_n = (ann["Knin_nights"] / ann["County_nights"] * 100).round(2); R["knin_share_of_county_nights_pct"] = share_n.to_dict()
+# relative growth regression: log(Knin/County) on time, pre (2016-2019) and post (2021-2025), annual
+rel = np.log(ann["Knin_arrivals"] / ann["County_arrivals"])
+for lab, yrs in [("pre_2016_2019", range(2016, 2020)), ("post_2021_2025", range(2021, 2026))]:
+    y = rel.loc[list(yrs)]; X = sm.add_constant(np.arange(len(y))); m = sm.OLS(y.values, X).fit()
+    R[f"relative_growth_{lab}_pct_per_year"] = float((np.exp(m.params[1]) - 1) * 100); R[f"relative_growth_{lab}_p"] = float(m.pvalues[1])
+# monthly relative index 2019 = 100 (12-month rolling sums) for the figure
+roll = df.rolling(12).sum().dropna()
+base = roll.loc["2019-12-01"]; ri = roll.div(base) * 100
+fig, ax = plt.subplots(figsize=(7.5, 3.6))
+for col, ls, lab in [("Knin_arrivals", "-", "Knin (e-Visitor)"), ("County_arrivals", "--", "Šibenik-Knin County (CBS)"), ("Croatia_arrivals", ":", "Croatia (CBS)")]:
+    ax.plot(ri.index, ri[col], color="#000000", ls=ls, lw=1.5, label=lab)
+ax.axhline(100, color="#888888", lw=0.8); ax.set_ylabel("Rolling 12-month arrivals, Dec 2019 = 100"); ax.legend(fontsize=8, loc="upper left"); ax.margins(x=0.01)
+fig.savefig(P("figures/bw/rev_dzs_index.png"), dpi=300, bbox_inches="tight"); plt.close()
+tab = pd.DataFrame({"Knin arrivals": idx["Knin_arrivals"], "County arrivals": idx["County_arrivals"], "Croatia arrivals": idx["Croatia_arrivals"],
+                    "Knin nights": idx["Knin_nights"], "County nights": idx["County_nights"], "Croatia nights": idx["Croatia_nights"], "Knin share of county arrivals (%)": share})
+tab.to_csv(P("outputs/dzs_comparison_annual.csv")); print(tab)
+json.dump(R, open(P("outputs/dzs_comparison.json"), "w"), indent=2, default=float); print(json.dumps(R, indent=1, default=float))

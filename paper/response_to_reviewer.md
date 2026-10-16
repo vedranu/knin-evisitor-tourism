@@ -14,7 +14,7 @@ Verzija: paper/Knin_THM_submission.docx (THM), izgrađena iz paper/paper_thm.md;
 
 5. **Logistička krivulja.** Izbačena iz slika i tablica; jedna rečenica u ograničenjima (SE kapaciteta veća od procjene, stoga se ne iskazuje).
 
-6. **Schengen/euro.** Sažetak i 3.4 više ne sugeriraju utvrđen učinak. Usporedba s DZS-om: tablica BS_TU12 (županije, mjesečno) dostupna je preko PxWeb API-ja; pripremljen je scripts/06_dzs_comparison.py s točnim upitom (HR i ŠKŽ, 2016. - 2026., dolasci i noćenja). POST upit nije prošao iz ovog okruženja (mrežna ograničenja), pa usporedba **još nije u radu**; pokrenuti skriptu s računala s pristupom internetu ili izvesti tablicu ručno u data/external/dzs_tu12.csv, nakon čega skripta daje indeks 2019 = 100 za Knin, ŠKŽ i RH te stope rasta 2019. - 2025. i 2022. - 2025. U raspravi je najavljena kao sljedeći korak.
+6. **Schengen/euro i usporedba s DZS-om.** Napravljeno. DZS tablica BS_TU12 (županije, mjesečno, komercijalni smještaj) dohvaćena preko PxWeb API-ja 16. 10. 2026. (upit u data/external/dzs_tu12_query.json, podaci u data/external/dzs_tu12.csv, skripta scripts/06_dzs_comparison.py). Nalaz (3.4, Slika 4): dolasci 2019. - 2025.: ŠKŽ -4,3 %, RH +5,8 %, Knin +208 %; 2022. - 2025.: +9,1 %, +16,5 %, +147 %; udio Knina u dolascima županije 0,20 % → 0,64 %; log omjer Knin/ŠKŽ raste 3,5 %/god. 2016. - 2019. (p = 0,48) i 28,7 %/god. 2021. - 2025. (p = 0,008); siječanj - kolovoz 2026. sve tri serije stagniraju. Zaključak u radu: rast je lokalan, ne zrcali nacionalni trend; ali se Schengen i dalje ne može razdvojiti od rasta lokalne ponude. Sažetak i rasprava prilagođeni. Napomena o usporedivosti (DZS = komercijalni smještaj) navedena u 2.1.
 
 7. **Izjava o AI.** Preformulirana: korištenje za čitljivost i jezik te za pomoć pri pisanju i dokumentiranju koda koji je javno objavljen; svi rezultati reproducirani i provjereni od autora; alat nije korišten za generiranje nalaza i zaključaka. Na stranicama THM-a (Code of ethics, Journal policy) nisam našao klauzulu "only to improve readability and language"; jedini tekst o AI je onaj u predlošku (obvezna izjava). Preporuka ostaje: provjeriti s uredništvom prije slanja.
 
@@ -29,7 +29,10 @@ Verzija: paper/Knin_THM_submission.docx (THM), izgrađena iz paper/paper_thm.md;
 - "90 %" → "90%" u cijelom radu.
 - Numeracija: Uvod i Zaključak nenumerirani prema predlošku THM-a (predložak: INTRODUCTION i CONCLUSION bez broja, "1. HEADING 1" dalje).
 - Reference: Petrić i sur. (2025) sada s urednicima (Matteucci & Moretti) i stranicama; Milenkovska Klimoska (2021) uklonjena jer DOI nije potvrđen; Opačić & Banda: Scopus navodi 2025., svezak 87(2), DOI 10.21861/HGG.2024.87.02.06 (oznaka DOI-ja s "2024" je izdavačeva, godina ostaje 2025. prema Scopusu). Ružić & Gavrić, Krešić, Pranić & Vuković: DOI, svezak i stranice pročitani izravno sa Scopus stranica dokumenata (16. 10. 2026.).
-- Ukupno riječi: 7.480 (limit 8.000); sažetak 192 riječi.
+- Ukupno riječi: 7.703 (limit 8.000); sažetak 172 riječi (bez oznaka odjeljaka).
+- APA 7: svi radovi s tri i više autora u tekstu kao "Prvi et al."; Payne 2023 razlikovani kao "Payne, Gil-Alana, et al., 2023" i "Payne, Nazlioglu, et al., 2023".
+- Opačić & Banda: Crossref (DOI 10.21861/HGG.2024.87.02.06) navodi issued 2025-12, vol. 87(2), str. 137-167; godina 2025. je ispravna.
+- Slika 6 (projekcije): logaritamska os y, pojas simuliranog intervala više ne stišće stupce.
 
 ## Napomena
 

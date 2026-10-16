@@ -141,7 +141,7 @@ for ax, name, lab, pi in zip(axes, ["arrivals", "nights"], ["Arrivals", "Overnig
     for col, ls, mk, lb in [("SARIMA", "-", "o", "SARIMA"), ("ETS_log", "--", "s", "ETS (log)"), ("HoltWinters", "-.", "^", "Holt-Winters"), ("Combination", ":", "D", "Combination")]:
         ax.plot(yv.index, yv[col], color="#000000", lw=1.3, ls=ls, marker=mk, ms=4, label=lb)
     ax.set_title(lab, loc="left", fontsize=9); ax.set_xticks(range(2016, 2031)); ax.tick_params(axis="x", rotation=60)
-    ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v/1000:.0f}k")); ax.set_ylim(0, pi.hi80.max() * 1.05)
+    ax.set_yscale("log"); ax.set_ylim(500, pi.hi80.max() * 1.3); ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v/1000:g}k")); ax.set_yticks([1000, 2000, 5000, 10000, 20000, 50000]); ax.set_ylabel("log scale")
 axes[0].legend(fontsize=7.5, loc="upper left")
 fig.savefig(P("figures/bw/rev_projections.png")); plt.close()
 
