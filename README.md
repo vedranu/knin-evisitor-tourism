@@ -2,7 +2,7 @@
 
 Reproducible data set and code for the paper
 
-> Uroš, V. et al. (2026). *From transit stop to destination? A decade of e-Visitor data on tourism growth, seasonality, source-market structure and projections for Knin, Croatia (2016-2026).* Manuscript.
+> Uroš, V., Ćaćić, M., & Sorić, I. (2026). *From transit stop to destination? A decade of e-Visitor data on tourism growth, seasonality, source-market structure and projections for Knin, Croatia (2016-2026).* Manuscript.
 
 The repository contains the complete monthly record of the Croatian e-Visitor registration system for the area of the Tourist Board of the City of Knin (January 2016 to September 2026): tourist arrivals, overnight stays and number of tourists by country of origin (75 reported markets), together with the Python code that builds the consolidated data set, runs every statistical analysis and produces every table and figure in the paper.
 

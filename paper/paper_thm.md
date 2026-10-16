@@ -283,7 +283,7 @@ For the local tourist board and the county, the practical implication is that le
 
 # ACKNOWLEDGEMENTS
 
-The authors thank the Tourist Board of the City of Knin for providing the e-Visitor exports. The consolidated data set, code and figures are available at https://github.com/vedranu/knin-evisitor-tourism.
+The e-Visitor exports were provided by the Tourist Board of the Town of Knin, whose director is a co-author of this paper; one co-author is Mayor of the Town of Knin. The analysis and its conclusions are the authors' own and were not commissioned or funded by either institution. The consolidated data set, code and figures are available at https://github.com/vedranu/knin-evisitor-tourism.
 
 # DECLARATION OF GENERATIVE AI AND AI-ASSISTED TECHNOLOGIES IN THE WRITING PROCESS
 

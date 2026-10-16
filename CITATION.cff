@@ -6,6 +6,14 @@ authors:
     given-names: Vedran
     orcid: https://orcid.org/0009-0007-6568-0827
     affiliation: "University of Applied Sciences Marko Marulić in Knin; Faculty of Organization and Informatics, University of Zagreb"
+  - family-names: Ćaćić
+    given-names: Marijo
+    orcid: https://orcid.org/0009-0008-7197-4263
+    affiliation: "Faculty of Food Technology and Biotechnology, University of Zagreb; The Town of Knin Administration"
+  - family-names: Sorić
+    given-names: Ivan
+    orcid: https://orcid.org/0009-0009-1699-1973
+    affiliation: "Tourist Board of the Town of Knin; University of Zadar"
 date-released: 2026-10-16
 version: 1.0.0
 repository-code: https://github.com/vedranu/knin-evisitor-tourism
