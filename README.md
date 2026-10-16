@@ -1,5 +1,7 @@
 # Knin e-Visitor tourism data and analysis, 2016-2026
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23426165.svg)](https://doi.org/10.5281/zenodo.23426165)
+
 Reproducible data set and code for the paper
 
 > Uroš, V., Ćaćić, M., & Sorić, I. (2026). *From transit stop to destination? A decade of e-Visitor data on tourism growth, seasonality, source-market structure and projections for Knin, Croatia (2016-2026).* Manuscript.
@@ -54,7 +56,11 @@ Python 3.11+ is required. Tested with Python 3.13, pandas 2.x, statsmodels 0.15,
 
 ## Citation
 
-See `CITATION.cff`.
+Archived on Zenodo: version 1.0.0 DOI https://doi.org/10.5281/zenodo.23426165 (concept DOI for all versions: https://doi.org/10.5281/zenodo.23426164).
+
+> Uroš, V., Ćaćić, M., & Sorić, I. (2026). *Knin e-Visitor tourism data and analysis, 2016-2026: data, code, figures and manuscript* (Version 1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23426165
+
+See also `CITATION.cff`.
 
 ## Journal submission version
 
