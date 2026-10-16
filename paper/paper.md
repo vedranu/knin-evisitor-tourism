@@ -30,11 +30,11 @@ The rest of the paper is structured as follows. Section 2 reviews the literature
 
 ## 2.1 Tourism demand modelling and forecasting
 
-Tourism demand forecasting is a mature field with several reviews (Song & Li, 2008; Wu, Song & Shen, 2017; Song, Qiu & Park, 2019). Three families of methods dominate: time-series models, econometric models with explanatory variables, and, more recently, machine-learning and mixed-frequency methods. For small destinations with short monthly series and no local explanatory variables at monthly frequency, univariate time-series models remain the practical choice. The tourism forecasting competition of Athanasopoulos, Hyndman, Song and Wu (2011) found that for monthly and quarterly tourism series, seasonal exponential smoothing (ETS) and seasonal ARIMA models perform well, that simple seasonal naive forecasts are hard to beat at short horizons, and that forecast combinations are robust. These findings motivate the model set used here: seasonal ARIMA (Box & Jenkins, 1970), the ETS state-space family (Hyndman, Koehler, Snyder & Grose, 2002; Hyndman & Khandakar, 2008), the multiplicative Holt-Winters method (Winters, 1960), the seasonal naive benchmark and a simple combination. Forecast accuracy is assessed with the scale-free measures recommended by Hyndman and Koehler (2006). Seasonality in tourism series is often better treated as stochastic than deterministic (Kulendran & Wong, 2005), which supports the use of seasonal differencing and seasonal smoothing rather than fixed monthly dummies. For Croatia, Apergis, Mervar and Payne (2017) forecast disaggregated arrivals by source market with seasonal ARIMA and related models, and Mervar and Payne (2007) estimated long-run elasticities of foreign demand for Croatian destinations.
+Tourism demand forecasting is a mature field with several reviews (Song & Li, 2008; Wu, Song & Shen, 2017; Song, Qiu & Park, 2019). Three families of methods dominate: time-series models, econometric models with explanatory variables, and, more recently, machine-learning and mixed-frequency methods. For small destinations with short monthly series and no local explanatory variables at monthly frequency, univariate time-series models remain the practical choice. The tourism forecasting competition of Athanasopoulos, Hyndman, Song and Wu (2011) found that for monthly and quarterly tourism series, seasonal exponential smoothing (ETS) and seasonal ARIMA models perform well, that simple seasonal naive forecasts are hard to beat at short horizons, and that forecast combinations are robust. These findings motivate the model set used here: seasonal ARIMA (Box & Jenkins, 1970), the ETS state-space family (Hyndman, Koehler, Snyder & Grose, 2002; Hyndman & Khandakar, 2008), the multiplicative Holt-Winters method (Winters, 1960), the seasonal naive benchmark and a simple combination. Forecast accuracy is assessed with the scale-free measures recommended by Hyndman and Koehler (2006). Seasonality in tourism series is often better treated as stochastic than deterministic (Kulendran & Wong, 2005), which supports the use of seasonal differencing and seasonal smoothing rather than fixed monthly dummies. For Croatia, Baldigara and Mamula (2015) and Apergis, Mervar and Payne (2017) forecast arrivals with seasonal ARIMA models, Tica and Kožić (2015) compared univariate and causal models of inbound demand, Gricar, Baldigara and Šugar (2021) examined the determinants that affect arrival forecasts, and Mervar and Payne (2007) estimated long-run elasticities of foreign demand for Croatian destinations. Gil-Alana, Mervar and Payne (2015) showed that Croatian monthly series are highly persistent, which favours models with unit roots and seasonal differencing. All of these studies work at the national or county level; none forecasts a single small destination.
 
 ## 2.2 Measuring seasonality
 
-Seasonality is the most studied structural feature of tourism demand (Butler, 1994, 2001; Koenig-Lewis & Bischoff, 2005). Lundtorp (2001) classified measures into amplitude measures (seasonality ratio, peak share) and concentration measures (coefficient of variation, Gini coefficient). The Gini coefficient of monthly values has become the standard concentration measure since Fernández-Morales (2003) showed that it can be decomposed by source market, which allows the contribution of each market to overall seasonal concentration to be quantified (Cisneros-Martínez & Fernández-Morales, 2015; Fernández-Morales, Cisneros-Martínez & McCabe, 2016; Duro, 2016). Duro and Turrión-Prats (2019) computed Gini coefficients for a large set of countries and found Croatia among the most seasonal destinations in the world. Croatian studies confirmed this at the national and county level (Kožić, Krešić & Boranić-Živoder, 2013; Mak & Kovač, 2021), and Payne, Gil-Alana, Mervar and Goenechea (2023) found that the pandemic changed the persistence and seasonality of coastal county series. Whether inland destinations follow the coastal pattern is an open question that this paper addresses for one case.
+Seasonality is the most studied structural feature of tourism demand (Butler, 1994, 2001; Koenig-Lewis & Bischoff, 2005). Lundtorp (2001) classified measures into amplitude measures (seasonality ratio, peak share) and concentration measures (coefficient of variation, Gini coefficient). The Gini coefficient of monthly values has become the standard concentration measure since Fernández-Morales (2003) showed that it can be decomposed by source market, which allows the contribution of each market to overall seasonal concentration to be quantified (Cisneros-Martínez & Fernández-Morales, 2015; Fernández-Morales, Cisneros-Martínez & McCabe, 2016; Duro, 2016). Duro and Turrión-Prats (2019) computed Gini coefficients for a large set of countries and found Croatia among the most seasonal destinations in the world. Croatian studies confirmed this at the national and county level (Kožić, Krešić & Boranić-Živoder, 2013; Mak & Kovač, 2021; Milenkovska Klimoska, 2021), Ružić and Gavrić (2026) placed the Croatian NUTS-2 regions among the most seasonal in the Mediterranean on panel Gini estimates for 2020-2024, and Payne, Gil-Alana, Mervar and Goenechea (2023) found that the pandemic changed the persistence and seasonality of coastal county series. The policy response has focused on season extension through winter products (Krstinić Nižić & Šverko Grdić, 2018), agrotourism (Košak & Lugomer, 2016) and year-round rural experiences for domestic visitors (Pranić & Vuković, 2026), and Krešić (2026) showed from a year-round visitor survey that off-season visitors are at least as satisfied as summer visitors. Whether small inland destinations follow the coastal pattern is an open question that this paper addresses for one case.
 
 ## 2.3 Source-market structure
 
@@ -42,11 +42,11 @@ The concentration of demand on few source markets exposes a destination to shock
 
 ## 2.4 Structural change, the pandemic and institutional integration
 
-The COVID-19 pandemic was the largest shock to tourism in the post-war period (Gössling, Scott & Hall, 2021; Škare, Soriano & Porada-Rochoń, 2021), and recovery took different paths in different destinations (Fotiadis, Polyzos & Huan, 2021; Zhang, Song, Wen & Liu, 2021; Čorak, Boranić Živoder & Marušić, 2020). Payne, Gil-Alana and Mervar (2022) found that Croatian tourism series changed persistence after the pandemic. Structural change in a time series is tested with the Chow (1960) test when the break date is known and estimated with the Bai and Perron (1998, 2003) procedure when it is not. Croatia's accession to the European Union in 2013 had a measurable effect on tourism (Tkalec, 2024); the adoption of the euro and entry into Schengen on 1 January 2023 may have had similar effects through lower transaction costs and the removal of border queues (Gil-Pareja, Llorca-Vivero & Martínez-Serrano, 2007; Santana-Gallego, Ledesma-Rodríguez & Pérez-Rodríguez, 2010; Franjić, Jagodič, Božinovski & Jurakić, 2026), but no study has yet quantified this for a destination. Growth paths of destinations are also interpreted through the tourism area life cycle (Butler, 1980), which Lundtorp and Wanhill (2001) formalised as a logistic curve whose carrying capacity can be estimated from arrivals data.
+The COVID-19 pandemic was the largest shock to tourism in the post-war period (Gössling, Scott & Hall, 2021; Škare, Soriano & Porada-Rochoń, 2021), and recovery took different paths in different destinations (Fotiadis, Polyzos & Huan, 2021; Zhang, Song, Wen & Liu, 2021; Čorak, Boranić Živoder & Marušić, 2020). Payne, Gil-Alana and Mervar (2022) found that Croatian tourism series changed persistence after the pandemic, Payne, Nazlioglu, Mervar and Niroomand (2023) linked tourist stays to economic policy uncertainty during the pandemic, Šulc and Fuerst-Bjeliš (2021) described the change of tourism trajectories in Croatia, and Mikulić, Keček and Žajdela Hrustek (2023) showed with a regional input-output model that the pandemic hit Adriatic Croatia much harder than continental Croatia. Structural change in a time series is tested with the Chow (1960) test when the break date is known and estimated with the Bai and Perron (1998, 2003) procedure when it is not. Croatia's accession to the European Union in 2013 had a measurable effect on tourism (Tkalec, 2024); the adoption of the euro and entry into Schengen on 1 January 2023 may have had similar effects through lower transaction costs and the removal of border queues (Gil-Pareja, Llorca-Vivero & Martínez-Serrano, 2007; Santana-Gallego, Ledesma-Rodríguez & Pérez-Rodríguez, 2010; Franjić, Jagodič, Božinovski & Jurakić, 2026), but no study has yet quantified this for a destination. The closest evidence is geographical: Opačić and Banda (2025) documented how a change of geographical position (the Pelješac bridge and Schengen) altered tourism development on the Pelješac peninsula, and Wittmann, Gonda, Merza and Pap (2026) traced the transformation of a border region from closed border to tourism destination after Schengen accession. Growth paths of destinations are also interpreted through the tourism area life cycle (Butler, 1980), which Lundtorp and Wanhill (2001) formalised as a logistic curve whose carrying capacity can be estimated from arrivals data.
 
 ## 2.5 Hinterland tourism in Croatia
 
-Croatian tourism is spatially concentrated on the coast (Kranjčević & Hajdinjak, 2019) and regional convergence between coastal and continental counties has been slow (Payne, Nazlioglu & Mervar, 2023). Studies of the Dalmatian hinterland are few. Radeljak Kaufmann (2020) analysed rural tourism around Krka National Park and found spillover effects on the surrounding municipalities. Opačić, Klarić, Beroš and Boranić Živoder (2022) built a tourism development index for all Croatian local self-government units and placed inland towns such as Knin in the lowest categories. Tomljenović and Kunst (2014) discussed diversification from sun-and-sea towards cultural tourism in Dalmatia, and Koens, Postma and Papp (2018) discussed the dispersal of visitors from saturated hotspots as a response to overtourism. This paper adds a quantitative, decade-long case study to this thin literature.
+Croatian tourism is spatially concentrated on the coast (Kranjčević & Hajdinjak, 2019) and regional convergence between coastal and continental counties has been slow (Payne, Nazlioglu & Mervar, 2023). Studies of the Dalmatian hinterland are few. Protega, Božić and Lučić (2007) examined the effect of the A1 motorway on tourism in Šibenik-Knin County during its construction and found uneven effects across destinations. Radeljak Kaufmann (2020) analysed rural tourism around Krka National Park and found spillover effects on the surrounding municipalities, and Telbisz, Šulc, Mari and Radeljak Kaufmann (2022) surveyed Krka National Park visitors, most of whom are coastal tourists on a day trip, which is the pool from which hinterland towns such as Knin draw overnight stays. Petrić, Mandić and Mikulić (2025) proposed cultural tourism villages as a development model for the Dalmatian hinterland, and Cerjak, Galić and Antoniak (2026) analysed cultural heritage as a driver of rural tourism in Šibenik-Knin County. Opačić, Klarić, Beroš and Boranić Živoder (2022) built a tourism development index for all Croatian local self-government units and placed inland towns such as Knin in the lowest categories. Tomljenović and Kunst (2014) discussed diversification from sun-and-sea towards cultural tourism in Dalmatia, and Koens, Postma and Papp (2018) discussed the dispersal of visitors from saturated hotspots as a response to overtourism. This paper adds a quantitative, decade-long case study to this thin literature.
 
 # 3. Data and methods
 
@@ -199,7 +199,7 @@ Figure 6 shows the rolling 12-month arrivals for the six largest foreign markets
 
 ## 4.5 Structural change
 
-The dynamic-programming estimation of breaks in the mean of seasonally adjusted log arrivals (Figure 7) gives a single break in February 2023 when one break is allowed, breaks in May 2018 and February 2023 when two are allowed, and breaks in May 2018, July 2022 and March 2024 when three are allowed. The BIC favours three breaks over two by a small margin (-227.3 against -225.2) and both strongly over none (-82.9). In all specifications the dominant regime shift is placed in 2022-2023, not in 2020. The pandemic appears as a temporary level shift that is absorbed within the segment, because the series had returned to its 2019 level by mid-2021; the regime change that matters is the acceleration that started in mid-2022 and continued to early 2024, after which the level stabilised.
+The dynamic-programming estimation of breaks in the mean of seasonally adjusted log arrivals (Figure 7) gives a single break in February 2023 when one break is allowed, breaks in May 2018 and February 2023 when two are allowed, and breaks in May 2018, July 2022 and March 2024 when three are allowed. The BIC favours three breaks over two by a small margin (-227.3 against -225.2) and both strongly over none (-82.9). In all specifications the dominant regime shift is placed in 2022-2023, not in 2020. The pandemic appears as a temporary level shift that is absorbed within the segment, because the series had returned to its 2019 level by mid-2021, which is consistent with the finding of Mikulić, Keček and Žajdela Hrustek (2023) that continental Croatia was hit much less than the coast; the regime change that matters is the acceleration that started in mid-2022 and continued to early 2024, after which the level stabilised.
 
 Chow tests reject parameter stability at all three a priori dates: March 2020 (F = 28.1, p < 0.001), June 2021 (F = 18.4, p < 0.001) and January 2023 (F = 17.9, p < 0.001). The pre-pandemic trend, estimated on 2016-2019, was 16.8 % per year; the post-pandemic trend, estimated on June 2021 to September 2026, was 32.7 % per year (standard error 1.5 percentage points). The post-pandemic growth path is thus not a return to the pre-pandemic trend but a steeper one, which is consistent with the break estimates. The data cannot separate the effect of the euro and Schengen accession from the general post-pandemic catch-up of Croatian and European tourism, because both occurred in the same period; Section 5 discusses this.
 
@@ -261,7 +261,7 @@ The hypothesis that growth would spread demand into the off-season is not suppor
 
 ## 5.3 Market structure and the transit character
 
-Knin's foreign demand is unusually diversified for a small destination: 12-17 effective foreign markets and no foreign market above 11 % of arrivals. The vulnerability of the destination lies elsewhere. Seven of the ten largest markets have an average length of stay below two nights, and the overall ALOS fell from 2.5 to 2.0 nights during the growth phase, which means that the new demand was even more transit-oriented than the old. In Lew and McKercher's (2006) terms, Knin grew as a node on the Zagreb-Split corridor, not as a base for exploring the hinterland. The exception is Serbia, with 3.7 nights, and to a lesser extent Bosnia and Herzegovina and the United States, which point to visiting-friends-and-relatives and heritage motives. The question in the title can therefore be answered: Knin became a much busier transit stop, but not yet a destination. The projection scenarios translate this into numbers. The plateau scenario of the damped models (5,800 arrivals) is what the data imply if nothing changes; the SARIMA scenario (12,200) is what the pre-2026 growth rate would deliver if it resumed; the combination (7,900) is a middle path. Converting a fraction of the transit visitors into two- or three-night stays would raise overnight stays without any increase in arrivals and is the lever with the highest return, because it does not depend on attracting new markets.
+Knin's foreign demand is unusually diversified for a small destination: 12-17 effective foreign markets and no foreign market above 11 % of arrivals. The vulnerability of the destination lies elsewhere. Seven of the ten largest markets have an average length of stay below two nights, and the overall ALOS fell from 2.5 to 2.0 nights during the growth phase, which means that the new demand was even more transit-oriented than the old. In Lew and McKercher's (2006) terms, Knin grew as a node on the Zagreb-Split corridor, not as a base for exploring the hinterland; the visitor survey of Telbisz et al. (2022) shows the same pattern from the other side, with most Krka National Park visitors being coastal tourists on a day trip who do not stay in the hinterland. The exception is Serbia, with 3.7 nights, and to a lesser extent Bosnia and Herzegovina and the United States, which point to visiting-friends-and-relatives and heritage motives. The question in the title can therefore be answered: Knin became a much busier transit stop, but not yet a destination. The projection scenarios translate this into numbers. The plateau scenario of the damped models (5,800 arrivals) is what the data imply if nothing changes; the SARIMA scenario (12,200) is what the pre-2026 growth rate would deliver if it resumed; the combination (7,900) is a middle path. Converting a fraction of the transit visitors into two- or three-night stays would raise overnight stays without any increase in arrivals and is the lever with the highest return, because it does not depend on attracting new markets.
 
 ## 5.4 Methodological notes
 
@@ -297,6 +297,8 @@ Bai, J., & Perron, P. (1998). Estimating and testing linear models with multiple
 
 Bai, J., & Perron, P. (2003). Computation and analysis of multiple structural change models. *Journal of Applied Econometrics, 18*(1), 1-22. https://doi.org/10.1002/jae.659
 
+Baldigara, T., & Mamula, M. (2015). Modelling international tourism demand using seasonal ARIMA models. *Tourism and Hospitality Management, 21*(1), 1-31. https://doi.org/10.20867/thm.21.1.2
+
 Box, G. E. P., & Jenkins, G. M. (1970). *Time series analysis: Forecasting and control*. Holden-Day.
 
 Butler, R. W. (1980). The concept of a tourist area cycle of evolution: Implications for management of resources. *Canadian Geographer, 24*(1), 5-12. https://doi.org/10.1111/j.1541-0064.1980.tb00970.x
@@ -304,6 +306,8 @@ Butler, R. W. (1980). The concept of a tourist area cycle of evolution: Implicat
 Butler, R. W. (1994). Seasonality in tourism: Issues and problems. In A. V. Seaton (Ed.), *Tourism: The state of the art* (pp. 332-339). Wiley.
 
 Butler, R. W. (2001). Seasonality in tourism: Issues and implications. In T. Baum & S. Lundtorp (Eds.), *Seasonality in tourism* (pp. 5-21). Pergamon. https://doi.org/10.1016/B978-0-08-043674-6.50005-2
+
+Cerjak, M., Galić, G., & Antoniak, M. A. (2026). Cultural heritage as a driver of sustainable rural tourism development: A case study of Šibenik-Knin County. *Sustainability, 18*(3), 1416. https://doi.org/10.3390/su18031416
 
 Chow, G. C. (1960). Tests of equality between sets of coefficients in two linear regressions. *Econometrica, 28*(3), 591-605. https://doi.org/10.2307/1910133
 
@@ -325,9 +329,13 @@ Fotiadis, A., Polyzos, S., & Huan, T.-C. T. C. (2021). The good, the bad and the
 
 Franjić, M., Jagodič, G., Božinovski, B., & Jurakić, M. (2026). Currency conversion effects: Insights into tourist attitudes towards Croatia's entrance to the euro area. *Turyzm/Tourism, 36*(1), 19-33. https://doi.org/10.18778/0867-5856.2026.02
 
+Gil-Alana, L. A., Mervar, A., & Payne, J. E. (2015). Measuring persistence in Croatian tourism: Evidence from the Adriatic region. *Applied Economics, 47*(46), 4901-4917. https://doi.org/10.1080/00036846.2015.1037440
+
 Gil-Pareja, S., Llorca-Vivero, R., & Martínez-Serrano, J. A. (2007). The effect of EMU on tourism. *Review of International Economics, 15*(2), 302-312. https://doi.org/10.1111/j.1467-9396.2006.00620.x
 
 Gössling, S., Scott, D., & Hall, C. M. (2021). Pandemics, tourism and global change: A rapid assessment of COVID-19. *Journal of Sustainable Tourism, 29*(1), 1-20. https://doi.org/10.1080/09669582.2020.1758708
+
+Gricar, S., Baldigara, T., & Šugar, V. (2021). Sustainable determinants that affect tourist arrival forecasting. *Sustainability, 13*(17), 9659. https://doi.org/10.3390/su13179659
 
 Hyndman, R. J., & Athanasopoulos, G. (2021). *Forecasting: Principles and practice* (3rd ed.). OTexts. https://otexts.com/fpp3/
 
@@ -343,9 +351,15 @@ Koenig-Lewis, N., & Bischoff, E. E. (2005). Seasonality research: The state of t
 
 Koens, K., Postma, A., & Papp, B. (2018). Is overtourism overused? Understanding the impact of tourism in a city context. *Sustainability, 10*(12), 4384. https://doi.org/10.3390/su10124384
 
+Košak, M., & Lugomer, K. (2016). Agroturizam u funkciji produljenja turističke sezone primorske Hrvatske. *Hrvatski geografski glasnik, 77*(2), 141-168. https://doi.org/10.21861/hgg.2015.77.02.07
+
 Kožić, I., Krešić, D., & Boranić-Živoder, S. (2013). Analiza sezonalnosti turizma u Hrvatskoj primjenom metode Gini koeficijenta. *Ekonomski pregled, 64*(2), 159-181.
 
 Kranjčević, J., & Hajdinjak, S. (2019). Tourism urbanization in Croatia: The cases of Poreč in Istria and Makarska in Dalmatia. *Südosteuropa, 67*(3), 393-420. https://doi.org/10.1515/soeu-2019-0028
+
+Krešić, D. (2026). Tourism seasonality and tourist satisfaction: Evidence from a year-round visitor survey in Croatia. *Tourism, 74*(3), 519-529. https://doi.org/10.37741/t.74.3.10
+
+Krstinić Nižić, M., & Šverko Grdić, Z. (2018). Winter tourism in Croatia: Is it possible? *Sustainability, 10*(10), 3563. https://doi.org/10.3390/su10103563
 
 Kulendran, N., & Wong, K. K. F. (2005). Modeling seasonality in tourism forecasting. *Journal of Travel Research, 44*(2), 163-170. https://doi.org/10.1177/0047287505276605
 
@@ -363,6 +377,12 @@ Marušić, Z., Kožul, M., & Brozović, I. (2020). Measuring non-commercial tour
 
 Mervar, A., & Payne, J. E. (2007). Analysis of foreign tourism demand for Croatian destinations: Long-run elasticity estimates. *Tourism Economics, 13*(3), 407-420. https://doi.org/10.5367/000000007781497764
 
+Mikulić, D., Keček, D., & Žajdela Hrustek, N. (2023). Effects of COVID-19 on Adriatic and continental Croatia tourism: A regional input-output perspective. *Economic Research-Ekonomska Istraživanja, 36*(2), 2142811. https://doi.org/10.1080/1331677X.2022.2142811
+
+Milenkovska Klimoska, A. (2021). Influence of small enterprises on seasonality of Croatian tourism. *Tourism and Hospitality Management, 27*(3), 747-752.
+
+Opačić, V. T., & Banda, A. (2025). Utjecaj promjene geografskoga položaja na recentni turistički razvoj poluotoka Pelješca i obalnoga prostora uz zaljev Klek-Neum. *Hrvatski geografski glasnik, 87*(2), 137-167. https://doi.org/10.21861/HGG.2024.87.02.06
+
 Opačić, V. T., Klarić, Z., Beroš, I., & Boranić Živoder, S. (2022). Tourism Development Index of local self-government units: The example of Croatia. *Acta geographica Slovenica, 62*(1), 77-87. https://doi.org/10.3986/ags.9814
 
 Payne, J. E., Gil-Alana, L. A., & Mervar, A. (2022). Persistence in Croatian tourism: The impact of COVID-19. *Tourism Economics, 28*(6), 1676-1682. https://doi.org/10.1177/1354816621999969
@@ -371,7 +391,17 @@ Payne, J. E., Gil-Alana, L. A., Mervar, A., & Goenechea, M. (2023). Tourist arri
 
 Payne, J. E., Nazlioglu, S., & Mervar, A. (2023). Regional tourism convergence: A disaggregated analysis of Croatia. *Applied Economics, 55*(52), 6149-6169. https://doi.org/10.1080/00036846.2022.2141460
 
+Payne, J. E., Nazlioglu, S., Mervar, A., & Niroomand, F. (2023). Economic policy uncertainty, COVID-19, and tourist stays in Croatia: Evidence from a Fourier Toda-Yamamoto modeling approach. *The International Trade Journal, 37*(1), 7-26. https://doi.org/10.1080/08853908.2022.2134233
+
+Petrić, L., Mandić, A., & Mikulić, D. (2025). Fostering sustainable and resilient rural communities through cultural tourism villages: A case study of the Dalmatian hinterland. In *The future of cultural tourism* (pp. 50-69). Channel View Publications.
+
+Pranić, L., & Vuković, M. (2026). Beyond the summer: Identifying rural experiences for year-round domestic tourism in a seasonal destination. *Tourism Recreation Research, 51*(2), 515-532. https://doi.org/10.1080/02508281.2025.2489441
+
+Protega, V., Božić, N., & Lučić, Z. (2007). Impact of motorway A1 on development of tourism in the Šibenik-Knin County. *Promet - Traffic & Transportation, 19*(4), 225-231.
+
 Radeljak Kaufmann, P. (2020). Rural tourism in the surroundings of Krka National Park: Factors of development and spatial impacts. In M. Koderman & V. T. Opačić (Eds.), *Challenges of tourism development in protected areas of Croatia and Slovenia* (pp. 53-73). University of Primorska Press; Croatian Geographical Society. https://doi.org/10.26493/978-961-7055-08-5.53-73
+
+Ružić, I., & Gavrić, T. (2026). Regional determinants of tourism seasonality in Mediterranean EU NUTS-2 regions: A panel analysis using the Gini coefficient (2020-2024). *Tourism and Hospitality, 7*(8), 231. https://doi.org/10.3390/tourhosp7080231
 
 Santana-Gallego, M., Ledesma-Rodríguez, F. J., & Pérez-Rodríguez, J. V. (2010). Exchange rate regimes and tourism. *Tourism Economics, 16*(1), 25-43. https://doi.org/10.5367/000000010790872015
 
@@ -381,11 +411,19 @@ Song, H., & Li, G. (2008). Tourism demand modelling and forecasting - A review o
 
 Song, H., Qiu, R. T. R., & Park, J. (2019). A review of research on tourism demand forecasting. *Annals of Tourism Research, 75*, 338-362. https://doi.org/10.1016/j.annals.2018.12.001
 
+Šulc, I., & Fuerst-Bjeliš, B. (2021). Changes of tourism trajectories in (post)covidian world: Croatian perspectives. *Research in Globalization, 3*, 100052. https://doi.org/10.1016/j.resglo.2021.100052
+
+Telbisz, T., Šulc, I., Mari, L., & Radeljak Kaufmann, P. (2022). Attitudes and preferences of visitors of Krka National Park, Croatia. *Hungarian Geographical Bulletin, 71*(2), 117-132. https://doi.org/10.15201/hungeobull.71.2.2
+
+Tica, J., & Kožić, I. (2015). Forecasting Croatian inbound tourism demand. *Economic Research-Ekonomska Istraživanja, 28*(1), 1046-1062. https://doi.org/10.1080/1331677X.2015.1100842
+
 Tkalec, M. (2024). The effect of EU membership on tourism in Croatia. *European Journal of Tourism Research, 37*, 3708. https://doi.org/10.54055/ejtr.v37i.3342
 
 Tomljenović, R., & Kunst, I. (2014). From sun and sea tourism to cultural tourism - the case of Split-Dalmatia county. *European Journal of Tourism Research, 8*, 83-98. https://doi.org/10.54055/ejtr.v8i.152
 
 Winters, P. R. (1960). Forecasting sales by exponentially weighted moving averages. *Management Science, 6*(3), 324-342. https://doi.org/10.1287/mnsc.6.3.324
+
+Wittmann, T., Gonda, T., Merza, P., & Pap, N. (2026). From closed border to tourism destination: The Baranja triangle's transformation from Trianon to Schengen. *GeoJournal of Tourism and Geosites, 67*(3), 1926-1935. https://doi.org/10.30892/gtg.67309-1821
 
 Wu, D. C., Song, H., & Shen, S. (2017). New developments in tourism and hotel demand modeling and forecasting. *International Journal of Contemporary Hospitality Management, 29*(1), 507-529. https://doi.org/10.1108/IJCHM-05-2015-0249
 
