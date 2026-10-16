@@ -16,7 +16,10 @@ TITLE = 'FROM TRANSIT STOP TO DESTINATION? A DECADE OF E-VISITOR DATA ON TOURISM
 AUTHORS = [
     dict(name="Vedran UROŠ", corr=True, orcid="https://orcid.org/0009-0007-6568-0827",
          inst=['University of Applied Sciences "Marko Marulić" in Knin', 'Faculty of Organization and Informatics, University of Zagreb'], country="Croatia", email="vuros@veleknin.hr"),
-    dict(name="[Name SURNAME of co-author Sorić]", corr=False, orcid="https://orcid.org/[to be added]", inst=["[Institution]"], country="Croatia", email="[e-mail address]"),
+    dict(name="Marijo ĆAĆIĆ", corr=False, orcid="https://orcid.org/0009-0008-7197-4263",
+         inst=["Faculty of Food Technology and Biotechnology, University of Zagreb", "The Town of Knin Administration"], country="Croatia", email="mcacic@pbf.hr"),
+    dict(name="Ivan SORIĆ", corr=False, orcid="https://orcid.org/0009-0009-1699-1973",
+         inst=["Tourist Board of the Town of Knin", "University of Zadar (doctoral programme)"], country="Croatia", email="director@tz-knin.hr"),
 ]
 ABSTRACT = [
     ("Purpose", "The paper examines how tourism in Knin, a small town in the Dalmatian hinterland, developed during the first decade of Croatia's e-Visitor system, whether growth changed its seasonality and source-market structure, and what the data imply for 2030."),
@@ -26,8 +29,9 @@ ABSTRACT = [
 ]
 KEYWORDS = "tourism demand, seasonality, source markets, structural break, forecasting, Croatia"
 BIOS = [
-    'Vedran Uroš is a senior lecturer at the University of Applied Sciences "Marko Marulić" in Knin, where he is acting vice-dean for research and international cooperation, and a doctoral candidate at the Faculty of Organization and Informatics, University of Zagreb. His research covers energy-efficient wireless sensor networks and UAV-assisted data collection, as well as applied data analysis in tourism and regional development. [complete to max. 100 words]',
-    '[Co-author Sorić: professional biography of no more than 100 words to be added]',
+    'Vedran Uroš is a senior lecturer at the University of Applied Sciences "Marko Marulić" in Knin, where he serves as acting vice-dean for research and international cooperation, and a doctoral candidate at the Faculty of Organization and Informatics, University of Zagreb. His research covers energy-efficient wireless sensor networks and UAV-assisted data collection, as well as applied data analysis in tourism, agribusiness and regional development. He teaches courses in information security, digital transformation and local and regional development.',
+    "Marijo Ćaćić is a senior lecturer at the Faculty of Food Technology and Biotechnology, University of Zagreb, where he teaches Management and Marketing of Food Products in the graduate programme. He holds a master's degree in economics and is a doctoral student in Business Economics at the Faculty of Economics and Business, University of Rijeka. He also serves as Mayor of the Town of Knin, which gives him first-hand insight into local development and destination management. His professional interests include management, food marketing, and local and regional economic development.",
+    "Ivan Sorić is Director of the Tourist Board of the Town of Knin, where he is responsible for destination management, promotion and the tourist registration system of the town. He holds a degree in philosophy and religious sciences and is a doctoral student at the University of Zadar in the doctoral programme The Adriatic - a Link between Continents. His professional interests include destination management, cultural and heritage tourism and the development of tourism in the Dalmatian hinterland.",
 ]
 
 doc = Document("_thm_body.docx")
@@ -84,7 +88,9 @@ para_before(first, "")
 bt = doc.add_table(rows=len(BIOS), cols=1); bt.style = doc.styles["Table Grid"] if "Table Grid" in [s.name for s in doc.styles] else bt.style
 for i, b in enumerate(BIOS):
     c = bt.rows[i].cells[0]; c.paragraphs[0].text = ""
-    p = c.paragraphs[0]; r = p.add_run(b); r.font.size = Pt(9); r.font.name = "Times New Roman"; p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    p = c.paragraphs[0]; name, rest = b.split(" is ", 1)
+    r = p.add_run(name); r.bold = True; r.font.size = Pt(9); r.font.name = "Times New Roman"
+    r = p.add_run(" is " + rest); r.font.size = Pt(9); r.font.name = "Times New Roman"; p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
 # keep table/figure captions with the following element
 for p in doc.paragraphs:
     t = p.text.strip()
