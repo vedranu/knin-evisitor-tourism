@@ -22,6 +22,7 @@ outputs/                       all tables (CSV) and results.json with every numb
 figures/                       all figures (PNG, 300 dpi)
 paper/
     paper.md                   manuscript (Markdown, pandoc)
+    paper_hr.md                Croatian control version of the manuscript (same figures and tables)
     Knin_eVisitor_tourism_paper.docx / .pdf
     references_notes.md        verification notes for the reference list
 ```
