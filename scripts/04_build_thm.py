@@ -114,5 +114,7 @@ for p in doc.paragraphs:
         p.paragraph_format.keep_with_next = True
 # remove page numbers if any (none in reference) and save
 OUT = "Knin_THM_submission_anonymous.docx" if ANON else "Knin_THM_submission.docx"
+cp = doc.core_properties; cp.title = TITLE.title(); cp.comments = ""
+cp.author = "" if ANON else "Vedran Uroš, Marijo Ćaćić, Ivan Sorić"; cp.last_modified_by = ""
 doc.save(OUT); os.remove("_thm_body.docx")
 print("written paper/" + OUT)
