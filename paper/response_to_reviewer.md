@@ -37,3 +37,11 @@ Verzija: paper/Knin_THM_submission.docx (THM), izgrađena iz paper/paper_thm.md;
 ## Napomena
 
 Duga verzija (paper.md / paper_hr.md) zadržava stariju analizu lomova; ako se i ona šalje negdje, treba prenijeti promjene iz točaka 2 - 5.
+
+## Dopuna 16. 10. 2026. (drugi krug)
+
+- Popravljena oštećena rečenica u 1.1 ("..., Tica and Kožić (2015) compared ...").
+- Redoslijed slika: Slika 3 (segmentirani trend) sada je odmah iza prvog odlomka 3.4, ispred Slike 4 (usporedba sa ŠKŽ i RH).
+- Dodana referenca: Croatian Bureau of Statistics. (2026). *Tourist arrivals and nights ... by county, monthly (Table 1.2, BS_TU12)* [Data set]. PxWeb. Retrieved October 16, 2026, from https://web.dzs.hr/PXWeb/ i citat (Croatian Bureau of Statistics, 2026) u 2.1, 3.4 i izvoru Slike 4.
+- Opačić & Banda: ponovno provjereno u Crossrefu za DOI 10.21861/HGG.2024.87.02.06: "issued" 2025-12 (online 2025-12, tisak 2026-02), svezak 87, broj 2, str. 137-167. Godina 2025. je ispravna; "2024" u DOI-ju je oznaka izdavača (HGG DOI-ji nose godinu sveska prema njihovoj internoj shemi), ne godina objave.
+- Ukupno riječi: 7.742.

@@ -39,7 +39,7 @@ The rest of the paper is structured as follows. Section 1 reviews the literature
 
 ## 1.1. Tourism demand forecasting
 
-Tourism demand forecasting is a mature field (Song & Li, 2008; Wu et al., 2017; Song et al., 2019). For small destinations with short monthly series and no local explanatory variables at monthly frequency, univariate time-series models remain the practical choice. The tourism forecasting competition of Athanasopoulos et al. (2011) found that seasonal exponential smoothing (ETS) and seasonal ARIMA models perform well on monthly tourism series, that seasonal naive forecasts are hard to beat at short horizons, and that combinations are robust. These findings motivate the model set used here. Accuracy is assessed with the scale-free measures of Hyndman and Koehler (2006), and seasonality is treated as stochastic rather than deterministic (Kulendran & Wong, 2005). For Croatia, Baldigara and Mamula (2015) and Apergis et al. (2017) forecast arrivals with seasonal ARIMA models et al. (2015) compared univariate and causal models of inbound demand, and Gil-Alana et al. (2015) showed that Croatian monthly series are highly persistent. All of these studies work at national or county level; none forecasts a single small destination.
+Tourism demand forecasting is a mature field (Song & Li, 2008; Wu et al., 2017; Song et al., 2019). For small destinations with short monthly series and no local explanatory variables at monthly frequency, univariate time-series models remain the practical choice. The tourism forecasting competition of Athanasopoulos et al. (2011) found that seasonal exponential smoothing (ETS) and seasonal ARIMA models perform well on monthly tourism series, that seasonal naive forecasts are hard to beat at short horizons, and that combinations are robust. These findings motivate the model set used here. Accuracy is assessed with the scale-free measures of Hyndman and Koehler (2006), and seasonality is treated as stochastic rather than deterministic (Kulendran & Wong, 2005). For Croatia, Baldigara and Mamula (2015) and Apergis et al. (2017) forecast arrivals with seasonal ARIMA models, Tica and Kožić (2015) compared univariate and causal models of inbound demand, and Gil-Alana et al. (2015) showed that Croatian monthly series are highly persistent. All of these studies work at national or county level; none forecasts a single small destination.
 
 ## 1.2. Seasonality and source markets
 
@@ -55,7 +55,7 @@ Croatian tourism is spatially concentrated on the coast and regional convergence
 
 ## 2.1. Data
 
-The data are monthly reports exported from e-Visitor by the Tourist Board of the City of Knin (area "Šibensko-kninska - Knin", all accommodation types, tourists only, all billing categories), listing arrivals, overnight stays and number of tourists by country of origin according to the classification of the Croatian Bureau of Statistics. Reports cover January 2016 to September 2026 (129 months); annual reports for 2016-2025 were used to check the monthly totals. Two problems were resolved. Several files were mislabelled, so the month of each file was taken from the date parameters stored inside the file. No valid export existed for May 2017; its values were reconstructed per country as the difference between the 2017 annual report and the other eleven months, which reproduces the annual totals exactly. For comparison with the county and national level, monthly arrivals and overnight stays in commercial accommodation for Šibenik-Knin County and Croatia (Croatian Bureau of Statistics, table BS_TU12, January 2016 to August 2026) were retrieved through the PxWeb API; these series exclude non-commercial accommodation, so levels are not directly comparable with the Knin series, but growth rates are. As an administrative register, e-Visitor under-records non-commercial stays and compliance improved in its first years (Marušić et al., 2020), which affects levels more than growth rates and seasonal patterns.
+The data are monthly reports exported from e-Visitor by the Tourist Board of the City of Knin (area "Šibensko-kninska - Knin", all accommodation types, tourists only, all billing categories), listing arrivals, overnight stays and number of tourists by country of origin according to the classification of the Croatian Bureau of Statistics. Reports cover January 2016 to September 2026 (129 months); annual reports for 2016-2025 were used to check the monthly totals. Two problems were resolved. Several files were mislabelled, so the month of each file was taken from the date parameters stored inside the file. No valid export existed for May 2017; its values were reconstructed per country as the difference between the 2017 annual report and the other eleven months, which reproduces the annual totals exactly. For comparison with the county and national level, monthly arrivals and overnight stays in commercial accommodation for Šibenik-Knin County and Croatia (Croatian Bureau of Statistics, 2026; table BS_TU12, January 2016 to August 2026) were retrieved through the PxWeb API; these series exclude non-commercial accommodation, so levels are not directly comparable with the Knin series, but growth rates are. As an administrative register, e-Visitor under-records non-commercial stays and compliance improved in its first years (Marušić et al., 2020), which affects levels more than growth rates and seasonal patterns.
 
 ## 2.2. Methods
 
@@ -163,22 +163,22 @@ Source: Authors' calculation from e-Visitor data.
 
 Figure 3 shows the seasonally adjusted series with the segmented log-linear trend. The BIC selects three breaks, dated May 2018, April 2020 and August 2024, but the improvement over one break is small (BIC -250.8 against -247.1 for one break and -212.2 for none). The four segments have annual trend growth of -18%, 9%, 54% and 9%: a declining start from a very small base, modest growth to the pandemic, a steep segment from April 2020 to August 2024 and a near plateau since. The bootstrap 90% confidence intervals for the break dates are wide, 2017-10 to 2019-07, 2019-12 to 2021-10 and 2022-02 to 2025-04, so the third break cannot be placed more precisely than "between early 2022 and early 2025". The supF test for a single break in the trend model is maximised in April 2020 (F = 29.2) with a bootstrap p-value of 0.054, marginal at the 5% level. Breaks in the growth rate itself are not supported: on the first difference of the adjusted series the BIC prefers no break (mean growth 15.5% per year over the whole sample), and the one- to three-break alternatives have higher BIC values. Chow tests at March 2020, June 2021 and January 2023 all reject (F = 28.1, 18.4 and 17.9, p < 0.001), as expected on a trending series, and are not informative about the timing. Pre- and post-pandemic trend growth, estimated by OLS on 2016-2019 and on June 2021 to September 2026, was 16.8% and 32.7% per year.
 
-The evidence for H1 is therefore qualified. A steeper post-pandemic segment is present in the fitted trend and in the OLS growth rates, but its start cannot be dated to a particular event, the single most prominent break in the trend model coincides with the pandemic trough rather than with 2023, and the growth rate shows no statistically distinct regime. The 2022-2024 acceleration is visible but is better described as a sustained episode within a volatile growth process than as a discrete regime shift. The comparison with official county and national series (Figure 4) shows that the Knin path is not a reflection of regional or national demand. Between 2019 and 2025 arrivals in commercial accommodation fell 4.3% in Šibenik-Knin County and rose 5.8% in Croatia, while arrivals in Knin rose 208%; between 2022 and 2025 the figures are +9.1%, +16.5% and +147%. Knin's share of county arrivals rose from 0.20% in 2019 to 0.64% in 2025. The log ratio of Knin to county arrivals grew 3.5% per year in 2016-2019 (p = 0.48) and 28.7% per year in 2021-2025 (p = 0.008). In January-August 2026 Knin (+0.8%), the county (+2.3%) and Croatia (+1.6%) all stagnated. The acceleration is therefore local; what the data cannot do is attribute it to the euro and Schengen rather than to local supply or marketing, because all three changed in the same years.
-
-**Figure 4: Rolling 12-month arrivals, Knin (e-Visitor) against Šibenik-Knin County and Croatia (Croatian Bureau of Statistics, commercial accommodation), December 2019 = 100**
-
-![](../figures/bw/rev_dzs_index.png)
-
-::: {custom-style="Source"}
-Source: Authors' calculation from e-Visitor data and Croatian Bureau of Statistics table BS_TU12.
-:::
-
 **Figure 3: Seasonally adjusted arrivals with segmented log-linear trend, estimated break dates and bootstrap 90% confidence intervals (shaded)**
 
 ![](../figures/bw/rev_segmented_trend.png)
 
 ::: {custom-style="Source"}
 Source: Authors' calculation. Breaks estimated by dynamic programming in a segmented trend model (Bai & Perron, 2003); three breaks selected by BIC.
+:::
+
+The evidence for H1 is therefore qualified. A steeper post-pandemic segment is present in the fitted trend and in the OLS growth rates, but its start cannot be dated to a particular event, the single most prominent break in the trend model coincides with the pandemic trough rather than with 2023, and the growth rate shows no statistically distinct regime. The 2022-2024 acceleration is visible but is better described as a sustained episode within a volatile growth process than as a discrete regime shift. The comparison with official county and national series (Croatian Bureau of Statistics, 2026; Figure 4) shows that the Knin path is not a reflection of regional or national demand. Between 2019 and 2025 arrivals in commercial accommodation fell 4.3% in Šibenik-Knin County and rose 5.8% in Croatia, while arrivals in Knin rose 208%; between 2022 and 2025 the figures are +9.1%, +16.5% and +147%. Knin's share of county arrivals rose from 0.20% in 2019 to 0.64% in 2025. The log ratio of Knin to county arrivals grew 3.5% per year in 2016-2019 (p = 0.48) and 28.7% per year in 2021-2025 (p = 0.008). In January-August 2026 Knin (+0.8%), the county (+2.3%) and Croatia (+1.6%) all stagnated. The acceleration is therefore local; what the data cannot do is attribute it to the euro and Schengen rather than to local supply or marketing, because all three changed in the same years.
+
+**Figure 4: Rolling 12-month arrivals, Knin (e-Visitor) against Šibenik-Knin County and Croatia (Croatian Bureau of Statistics, commercial accommodation), December 2019 = 100**
+
+![](../figures/bw/rev_dzs_index.png)
+
+::: {custom-style="Source"}
+Source: Authors' calculation from e-Visitor data and Croatian Bureau of Statistics (2026).
 :::
 
 ## 3.5. Forecasting models, validation and projections
@@ -313,6 +313,8 @@ Butler, R. W. (2001). Seasonality in tourism: Issues and implications. In T. Bau
 Cerjak, M., Galić, G., & Antoniak, M. A. (2026). Cultural heritage as a driver of sustainable rural tourism development: A case study of Šibenik-Knin County. *Sustainability, 18*(3), 1416. https://doi.org/10.3390/su18031416
 
 Chow, G. C. (1960). Tests of equality between sets of coefficients in two linear regressions. *Econometrica, 28*(3), 591-605. https://doi.org/10.2307/1910133
+
+Croatian Bureau of Statistics. (2026). *Tourist arrivals and nights of domestic and foreign tourists in commercial accommodation, by county, monthly (Table 1.2, BS_TU12)* [Data set]. PxWeb. Retrieved October 16, 2026, from https://web.dzs.hr/PXWeb/
 
 Cleveland, R. B., Cleveland, W. S., McRae, J. E., & Terpenning, I. (1990). STL: A seasonal-trend decomposition procedure based on loess. *Journal of Official Statistics, 6*(1), 3-73.
 
