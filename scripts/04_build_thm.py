@@ -12,7 +12,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); P = os.path.join(HERE, "..", 
 os.chdir(P)
 subprocess.run(["pandoc", "paper_thm_body.md", "-o", "_thm_body.docx", "--resource-path=.", "--columns=60", "--reference-doc=thm_reference.docx"], check=True)
 
-TITLE = 'FROM TRANSIT STOP TO DESTINATION? A DECADE OF E-VISITOR DATA ON TOURISM GROWTH, SEASONALITY, SOURCE MARKETS AND PROJECTIONS FOR KNIN, CROATIA'
+TITLE = 'FROM TRANSIT STOP TO DESTINATION? A DECADE OF E-VISITOR DATA ON TOURISM IN KNIN, CROATIA'
 AUTHORS = [
     dict(name="Vedran UROŠ", corr=True, orcid="https://orcid.org/0009-0007-6568-0827",
          inst=['University of Applied Sciences "Marko Marulić" in Knin', 'Faculty of Organization and Informatics, University of Zagreb'], country="Croatia", email="vuros@veleknin.hr"),
@@ -20,8 +20,8 @@ AUTHORS = [
 ]
 ABSTRACT = [
     ("Purpose", "The paper examines how tourism in Knin, a small town in the Dalmatian hinterland, developed during the first decade of Croatia's e-Visitor system, whether growth changed its seasonality and source-market structure, and what the data imply for 2030."),
-    ("Methodology/Design/Approach", "The complete monthly e-Visitor record (January 2016 to September 2026, 129 months, 75 markets) is analysed with STL decomposition, Gini coefficients of seasonality, Herfindahl-Hirschman indices, Bai-Perron break estimation, Chow tests, and SARIMA, ETS and Holt-Winters models validated on a 21-month hold-out and projected to 2030."),
-    ("Findings", "Arrivals grew from 1,404 (2016) to 6,178 (2025) and overnight stays from 3,456 to 12,558, with the regime shift dated to 2022-2023 rather than the pandemic. Seasonality did not fall; the summer peak flattened into a longer summer. Foreign demand diversified across 12-17 effective markets, but average stay fell to two nights. Growth stalled in 2026, so projections to 2030 range from a plateau of 5,800 arrivals to 12,200."),
+    ("Methodology/Design/Approach", "The complete monthly e-Visitor record (January 2016 to September 2026, 129 months, 75 markets) is analysed with STL decomposition, Gini coefficients of seasonality, Herfindahl-Hirschman indices, segmented-trend break estimation with bootstrap inference, and SARIMA, ETS and Holt-Winters models validated on a hold-out and by rolling-origin evaluation and projected to 2030 with simulated intervals."),
+    ("Findings", "Arrivals grew from 1,404 (2016) to 6,178 (2025) and overnight stays from 3,456 to 12,558. Post-pandemic growth was steeper than before, but break dates have wide confidence intervals and the growth rate shows no distinct regime. Seasonality did not fall; the summer peak flattened into a longer summer. Foreign demand diversified across 12-17 effective markets, but average stay fell to two nights. Growth stalled in 2026, so projections to 2030 range from a plateau of 5,800 arrivals to 12,200."),
     ("Originality of the research", "First decade-long monthly analysis of a single Croatian inland destination, with open data and code."),
 ]
 KEYWORDS = "tourism demand, seasonality, source markets, structural break, forecasting, Croatia"

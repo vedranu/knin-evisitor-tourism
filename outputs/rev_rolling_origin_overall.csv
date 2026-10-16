@@ -1,0 +1,6 @@
+model,MAPE,MASE
+Combination,34.4,2.67
+ETS,33.88,2.69
+HoltWinters,36.68,2.68
+SARIMA,34.64,2.73
+SeasonalNaive,32.43,2.54
