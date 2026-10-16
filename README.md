@@ -55,3 +55,7 @@ Python 3.11+ is required. Tested with Python 3.13, pandas 2.x, statsmodels 0.15,
 ## Citation
 
 See `CITATION.cff`.
+
+## Journal submission version
+
+`scripts/04_build_thm.py` builds `paper/Knin_THM_submission.docx`, the manuscript formatted for *Tourism and Hospitality Management* (THM template: Times New Roman 10 pt, A4, structured abstract, black-and-white figures from `figures/bw/`, APA 7). The black-and-white figures are produced by `BW=1 python scripts/02_analysis.py`. The text of that version is `paper/paper_thm.md` (shortened to the journal's 8,000-word limit).

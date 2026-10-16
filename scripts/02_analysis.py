@@ -22,13 +22,20 @@ warnings.filterwarnings("ignore")
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 P = lambda *a: os.path.join(ROOT, *a)
-os.makedirs(P("figures"), exist_ok=True); os.makedirs(P("outputs"), exist_ok=True)
+BW = os.environ.get("BW") == "1"   # BW=1 renders black-and-white figures into figures/bw (journal requirement)
+FIGDIR = "figures/bw" if BW else "figures"
+os.makedirs(P(FIGDIR), exist_ok=True); os.makedirs(P("outputs"), exist_ok=True)
 
 # ---------- palette (validated categorical palette, fixed order) ----------
 CAT = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"]
 SEQ = ["#cde2fb", "#b7d3f6", "#9ec5f4", "#86b6ef", "#6da7ec", "#5598e7", "#3987e5", "#2a78d6", "#256abf", "#1c5cab", "#184f95", "#104281", "#0d366b"]
+if BW:
+    CAT = ["#1a1a1a", "#8c8c8c", "#c4c4c4", "#4f4f4f", "#a8a8a8", "#2f2f2f", "#dcdcdc", "#6e6e6e"]
+    SEQ = ["#f4f4f4", "#e6e6e6", "#d6d6d6", "#c4c4c4", "#b0b0b0", "#9a9a9a", "#828282", "#6a6a6a", "#525252", "#3c3c3c", "#282828", "#161616", "#000000"]
+LS = ["-", "--", "-.", ":", (0, (5, 1, 1, 1))] if BW else ["-"] * 5
+_noop = lambda *a, **k: None   # in BW (journal) mode figure titles are given as captions in the text, not inside the figure
 INK, INK2, GRID = "#1a1a19", "#5f5e5a", "#e6e5e1"
-plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 9, "axes.edgecolor": INK2, "axes.labelcolor": INK,
+plt.rcParams.update({"font.family": "DejaVu Sans"}); plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 9, "axes.edgecolor": INK2, "axes.labelcolor": INK,
                      "xtick.color": INK2, "ytick.color": INK2, "axes.spines.top": False, "axes.spines.right": False,
                      "axes.grid": True, "grid.color": GRID, "grid.linewidth": 0.6, "axes.axisbelow": True,
                      "figure.dpi": 110, "savefig.dpi": 300, "savefig.bbox": "tight", "legend.frameon": False})
@@ -68,14 +75,14 @@ print(ann.round(3).to_string()); print(RES["cagr"])
 # Fig 1: monthly series arrivals & nights, domestic/foreign
 fig, axes = plt.subplots(2, 1, figsize=(9, 5.6), sharex=True)
 for ax, (a, b, lab) in zip(axes, [("domestic_arr", "foreign_arr", "Arrivals"), ("domestic_nights", "foreign_nights", "Overnight stays")]):
-    ax.stackplot(tot.index, tot[a], tot[b], colors=[CAT[0], CAT[1]], labels=["Domestic", "Foreign"], alpha=0.9)
+    ax.stackplot(tot.index, tot[a], tot[b], colors=[CAT[0], CAT[1]] if not BW else ["#5a5a5a", "#c8c8c8"], labels=["Domestic", "Foreign"], alpha=0.9)
     ax.set_ylabel(lab); ax.margins(x=0.01)
     for d, t in [("2020-03-01", "COVID-19"), ("2023-01-01", "Euro + Schengen")]:
         ax.axvline(pd.Timestamp(d), color=INK2, lw=0.8, ls="--")
         if lab == "Arrivals": ax.text(pd.Timestamp(d), ax.get_ylim()[1] * 0.97, " " + t, va="top", fontsize=8, color=INK2)
 axes[0].legend(loc="upper left", ncol=2); axes[1].xaxis.set_major_locator(mdates.YearLocator()); axes[1].xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
-fig.suptitle("Monthly tourist arrivals and overnight stays in Knin, Jan 2016 - Sep 2026 (e-Visitor)", x=0.01, ha="left", fontsize=10, color=INK)
-fig.savefig(P("figures/fig1_monthly_series.png")); plt.close()
+(_noop if BW else fig.suptitle)("Monthly tourist arrivals and overnight stays in Knin, Jan 2016 - Sep 2026 (e-Visitor)", x=0.01, ha="left", fontsize=10, color=INK)
+fig.savefig(P(FIGDIR + "/fig1_monthly_series.png")); plt.close()
 
 # ---------- 2. STL ----------
 stl_a = STL(np.log1p(y_arr), period=12, robust=True).fit()
@@ -84,8 +91,8 @@ fig, axes = plt.subplots(4, 1, figsize=(9, 7.5), sharex=True)
 for comp, name, ax in zip([np.log1p(y_arr), stl_a.trend, stl_a.seasonal, stl_a.resid], ["log(1+arrivals)", "Trend", "Seasonal", "Remainder"], axes):
     ax.plot(comp.index, comp.values, color=CAT[0], lw=1.6); ax.set_ylabel(name)
 axes[-1].xaxis.set_major_locator(mdates.YearLocator()); axes[-1].xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
-fig.suptitle("STL decomposition of log monthly arrivals, Knin 2016-2026", x=0.01, ha="left", fontsize=10)
-fig.savefig(P("figures/fig2_stl_arrivals.png")); plt.close()
+(_noop if BW else fig.suptitle)("STL decomposition of log monthly arrivals, Knin 2016-2026", x=0.01, ha="left", fontsize=10)
+fig.savefig(P(FIGDIR + "/fig2_stl_arrivals.png")); plt.close()
 # strength of trend / seasonality (Hyndman & Athanasopoulos)
 def strength(stl):
     r, s, t = stl.resid, stl.seasonal, stl.trend
@@ -131,9 +138,9 @@ for i in range(share.shape[0]):
         v = share.values[i, j]
         if not np.isnan(v): ax1.text(j, i, f"{v*100:.0f}", ha="center", va="center", fontsize=7, color="white" if v > 0.12 else INK)
 ax1.set_title("Share of annual arrivals by month (%)", loc="left", fontsize=9)
-ax2.plot(sg.year, sg.gini, "-o", color=CAT[0], ms=5, label="Arrivals"); ax2.plot(sgn.year, sgn.gini, "-s", color=CAT[1], ms=5, label="Nights")
+ax2.plot(sg.year, sg.gini, "-o", color=CAT[0], ms=5, label="Arrivals"); ax2.plot(sgn.year, sgn.gini, "--s", color=CAT[1] if not BW else "#6e6e6e", ms=5, label="Nights")
 ax2.set_ylim(0.25, 0.6); ax2.set_title("Gini coefficient of seasonality", loc="left", fontsize=9); ax2.legend(); ax2.set_xticks(sg.year); ax2.tick_params(axis="x", rotation=45)
-fig.savefig(P("figures/fig3_seasonality.png")); plt.close()
+fig.savefig(P(FIGDIR + "/fig3_seasonality.png")); plt.close()
 
 # ---------- 4. source-market structure: HHI, top markets, chord diagram ----------
 cy = lng.groupby(["year", "country"])[["arrivals", "nights"]].sum().reset_index()
@@ -165,11 +172,11 @@ sel = top.sort_values(2025, ascending=False).head(8).index.tolist()
 sh = top.loc[sel].T.copy(); sh["Other"] = top.drop(sel).sum().values; sh = sh.div(sh.sum(axis=1), axis=0)
 labels = [("Croatia" if c == "Hrvatska" else {"Njemačka": "Germany", "Srbija": "Serbia", "Bosna i Hercegovina": "Bosnia and Herz.", "Poljska": "Poland", "Francuska": "France", "Austrija": "Austria", "Češka": "Czechia", "Slovenija": "Slovenia", "Italija": "Italy"}.get(c, c)) for c in sh.columns]
 fig, ax = plt.subplots(figsize=(9, 4.2))
-ax.stackplot(sh.index, sh.T.values * 100, labels=labels, colors=CAT[:8] + ["#b8b7b1"], alpha=0.92)
+ax.stackplot(sh.index, sh.T.values * 100, labels=labels, colors=CAT[:8] + ["#b8b7b1"], alpha=0.92, **(dict(hatch=["", "//", "", "\\\\", "", "xx", "", "..", ""], edgecolor="white", linewidth=0.3) if BW else {}))
 ax.set_ylim(0, 100); ax.set_ylabel("Share of arrivals (%)"); ax.set_xticks(sh.index); ax.margins(x=0)
 ax.legend(loc="center left", bbox_to_anchor=(1.01, 0.5), fontsize=8)
-ax.set_title("Source-market structure of arrivals in Knin, 2016-2026 (2026 = Jan-Sep)", loc="left", fontsize=10)
-fig.savefig(P("figures/fig4_market_shares.png")); plt.close()
+(_noop if BW else ax.set_title)("Source-market structure of arrivals in Knin, 2016-2026 (2026 = Jan-Sep)", loc="left", fontsize=10)
+fig.savefig(P(FIGDIR + "/fig4_market_shares.png")); plt.close()
 
 # Fig 5: chord diagram market x month (2023-2026 pooled, arrivals), top-10 markets + other
 from pycirclize import Circos
@@ -184,11 +191,12 @@ grp = {"Nov-Mar": ["Nov", "Dec", "Jan", "Feb", "Mar"], "Apr-May": ["Apr", "May"]
 cms = pd.DataFrame({k: cm2[v].sum(axis=1) for k, v in grp.items()})
 cms.to_csv(P("outputs/table5_market_season_matrix_2023_2026.csv"))
 colors = {n: c for n, c in zip(cms.index, CAT[:8] + ["#9c8f7a", "#7a8c9c", "#b8b7b1"])}
-colors.update({"Nov-Mar": "#cfcdc6", "Apr-May": "#a8a69f", "Jun-Aug": "#5f5e5a", "Sep-Oct": "#86847e"})
-circos = Circos.chord_diagram(cms, space=3, cmap=colors, label_kws=dict(size=8, r=108), link_kws=dict(ec="white", lw=0.3, alpha=0.75))
+if BW: colors = {n: c for n, c in zip(cms.index, ["#111111", "#3a3a3a", "#5c5c5c", "#7a7a7a", "#969696", "#adadad", "#c3c3c3", "#d6d6d6", "#e4e4e4", "#efefef", "#f7f7f7"])}
+colors.update({"Nov-Mar": "#cfcdc6", "Apr-May": "#a8a69f", "Jun-Aug": "#5f5e5a", "Sep-Oct": "#86847e"} if not BW else {"Nov-Mar": "#ffffff", "Apr-May": "#bfbfbf", "Jun-Aug": "#404040", "Sep-Oct": "#808080"})
+circos = Circos.chord_diagram(cms, space=3, cmap=colors, label_kws=dict(size=8, r=108), link_kws=dict(ec="white" if not BW else "#777777", lw=0.3, alpha=0.75 if not BW else 0.9))
 fig = circos.plotfig(figsize=(7, 7))
-fig.suptitle("Chord diagram: source markets x season, arrivals in Knin 2023 - Sep 2026", fontsize=10, x=0.02, ha="left")
-fig.savefig(P("figures/fig5_chord_market_season.png"), dpi=300, bbox_inches="tight"); plt.close()
+(_noop if BW else fig.suptitle)("Chord diagram: source markets x season, arrivals in Knin 2023 - Sep 2026", fontsize=10, x=0.02, ha="left")
+fig.savefig(P(FIGDIR + "/fig5_chord_market_season.png"), dpi=300, bbox_inches="tight"); plt.close()
 
 # ---------- 5. structural breaks ----------
 # (a) Bai-Perron style via ruptures (PELT / Dynp on log seasonally-adjusted series)
@@ -225,12 +233,12 @@ RES["post_covid_trend_se_annual"] = float(mp.bse[1] * 12)
 # Fig 6: SA log series with segment means and break dates
 fig, ax = plt.subplots(figsize=(9, 3.8))
 ax.plot(sa.index, np.expm1(sa), color=CAT[0], lw=1.5, label="Seasonally adjusted arrivals (STL)")
-ax.plot(tot.index, y_arr.rolling(12, center=True).mean(), color=CAT[1], lw=1.5, label="12-month centred moving average")
+ax.plot(tot.index, y_arr.rolling(12, center=True).mean(), color=CAT[1], lw=1.5, ls="--" if BW else "-", label="12-month centred moving average")
 for d in bp[RES["breaks"]["selected_k"]]:
     ax.axvline(pd.Timestamp(d), color=INK2, ls="--", lw=0.9); ax.text(pd.Timestamp(d), ax.get_ylim()[1] * 0.95, " " + d[:7], fontsize=8, color=INK2)
 ax.set_ylabel("Arrivals per month"); ax.legend(loc="upper left"); ax.margins(x=0.01)
-ax.set_title("Seasonally adjusted arrivals and estimated structural breaks (Bai-Perron / dynamic programming, BIC)", loc="left", fontsize=10)
-fig.savefig(P("figures/fig6_structural_breaks.png")); plt.close()
+(_noop if BW else ax.set_title)("Seasonally adjusted arrivals and estimated structural breaks (Bai-Perron / dynamic programming, BIC)", loc="left", fontsize=10)
+fig.savefig(P(FIGDIR + "/fig6_structural_breaks.png")); plt.close()
 
 # ---------- 6. unit root tests ----------
 ly = np.log1p(y_arr)
@@ -287,12 +295,12 @@ RES["accuracy_arrivals"] = acc_a.round(3).to_dict(); RES["accuracy_nights"] = ac
 # Fig 7: out-of-sample validation plot (arrivals)
 fig, ax = plt.subplots(figsize=(9, 3.8))
 ax.plot(y_arr["2022":].index, y_arr["2022":], color=INK, lw=1.8, label="Actual")
-for (k, v), c in zip(fc_a.items(), [CAT[0], CAT[1], CAT[2], "#b8b7b1", CAT[6]]):
-    ax.plot(v.index, v.values, lw=1.4, color=c, ls="-" if k != "Seasonal naive" else ":", label=f"{k} (MAPE {acc_a.loc[k,'MAPE']:.0f}%)")
+for (k, v), c, ls in zip(fc_a.items(), [CAT[0], CAT[1], CAT[2], "#b8b7b1", CAT[6]], LS):
+    ax.plot(v.index, v.values, lw=1.4, color=c if not BW else "#555555", ls=ls if BW else ("-" if k != "Seasonal naive" else ":"), label=f"{k} (MAPE {acc_a.loc[k,'MAPE']:.0f}%)")
 ax.axvspan(pd.Timestamp("2025-01-01"), pd.Timestamp("2026-09-01"), color=GRID, alpha=0.5, lw=0); ax.text(pd.Timestamp("2025-01-15"), ax.get_ylim()[1] * 0.95, "hold-out: Jan 2025 - Sep 2026", fontsize=8, color=INK2)
 ax.legend(fontsize=8, loc="upper left"); ax.set_ylabel("Arrivals per month"); ax.margins(x=0.01)
-ax.set_title("Out-of-sample validation: models fitted on 2016-2024, forecast 21 months ahead", loc="left", fontsize=10)
-fig.savefig(P("figures/fig7_validation.png")); plt.close()
+(_noop if BW else ax.set_title)("Out-of-sample validation: models fitted on 2016-2024, forecast 21 months ahead", loc="left", fontsize=10)
+fig.savefig(P(FIGDIR + "/fig7_validation.png")); plt.close()
 
 # ---------- 8. final projections to 2030 (refit on full sample to 2026-09) ----------
 H = 51  # Oct 2026 .. Dec 2030
@@ -334,31 +342,31 @@ print("logistic", RES.get("logistic"))
 fig, axes = plt.subplots(1, 2, figsize=(10, 4))
 for ax, name, lab in zip(axes, ["arrivals", "nights"], ["Arrivals", "Overnight stays"]):
     h = (y_arr if name == "arrivals" else y_nig); ah = h.groupby(h.index.year).sum()
-    ax.bar(ah.index[ah.index < 2026], ah[ah.index < 2026], color=CAT[0], width=0.7, label="Actual")
-    ax.bar([2026], [ah.loc[2026]], color=CAT[0], width=0.7, alpha=0.5, label="2026 actual Jan-Sep")
+    ax.bar(ah.index[ah.index < 2026], ah[ah.index < 2026], color=CAT[0] if not BW else "#9a9a9a", width=0.7, label="Actual")
+    ax.bar([2026], [ah.loc[2026]], color=CAT[0] if not BW else "#9a9a9a", width=0.7, alpha=0.5, label="2026 actual Jan-Sep")
     yv = proj[name]["annual"]
     mo = proj[name]["monthly"]; lo = mo.groupby(mo.index.year).SARIMA_lo80.sum(); hi = mo.groupby(mo.index.year).SARIMA_hi80.sum()
     lo.loc[2026] += ah.loc[2026]; hi.loc[2026] += ah.loc[2026]
     ax.fill_between(yv.index, lo.values, hi.values, color=CAT[1], alpha=0.15, lw=0, label="SARIMA 80% interval (sum of monthly bounds)")
     ax.set_ylim(0, yv["SARIMA"].max() * 1.35)
-    for col, c, ls in [("SARIMA", CAT[1], "-"), ("ETS_log", CAT[2], "-"), ("HoltWinters", CAT[3], "-"), ("Combination", INK, "--")]:
+    for col, c, ls in ([("SARIMA", CAT[1], "-"), ("ETS_log", CAT[2], "-"), ("HoltWinters", CAT[3], "-"), ("Combination", INK, "--")] if not BW else [("SARIMA", "#000000", "-"), ("ETS_log", "#000000", "--"), ("HoltWinters", "#000000", "-."), ("Combination", "#000000", (0, (5, 1, 1, 1)))]):
         ax.plot(yv.index, yv[col], color=c, lw=1.6, ls=ls, marker="o", ms=3.5, label=col.replace("_log", " (log)"))
     if name == "arrivals" and isinstance(RES.get("logistic"), dict):
-        ax.plot(list(RES["logistic_path"].keys()), list(RES["logistic_path"].values()), color=CAT[6], lw=1.4, ls=":", label=f"Logistic (K={RES['logistic']['K']:,.0f})")
+        ax.plot(list(RES["logistic_path"].keys()), list(RES["logistic_path"].values()), color=CAT[6] if not BW else "#7a7a7a", lw=1.4, ls=":", label=f"Logistic (K={RES['logistic']['K']:,.0f})")
     ax.set_title(f"{lab}: actual 2016-2026 and projections to 2030", loc="left", fontsize=9); ax.set_xticks(range(2016, 2031)); ax.tick_params(axis="x", rotation=60)
     ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v/1000:.0f}k"))
 axes[0].legend(fontsize=7.5, loc="upper left")
-fig.savefig(P("figures/fig8_projections.png")); plt.close()
+fig.savefig(P(FIGDIR + "/fig8_projections.png")); plt.close()
 
 # Fig 9: monthly projection fan (arrivals) 2022-2030
 fig, ax = plt.subplots(figsize=(9, 3.8))
 mo = proj["arrivals"]["monthly"]
 ax.plot(y_arr["2022":].index, y_arr["2022":], color=INK, lw=1.5, label="Actual")
 ax.fill_between(mo.index, mo.SARIMA_lo80, mo.SARIMA_hi80, color=CAT[1], alpha=0.18, lw=0, label="SARIMA 80% interval")
-ax.plot(mo.index, mo.SARIMA, color=CAT[1], lw=1.3, label="SARIMA"); ax.plot(mo.index, mo.ETS_log, color=CAT[2], lw=1.3, label="ETS (log)"); ax.plot(mo.index, mo.HoltWinters, color=CAT[3], lw=1.3, label="Holt-Winters")
+ax.plot(mo.index, mo.SARIMA, color=CAT[1], lw=1.3, ls=LS[0], label="SARIMA"); ax.plot(mo.index, mo.ETS_log, color=CAT[2] if not BW else "#000000", lw=1.3, ls=LS[1], label="ETS (log)"); ax.plot(mo.index, mo.HoltWinters, color=CAT[3] if not BW else "#000000", lw=1.3, ls=LS[2], label="Holt-Winters")
 ax.legend(fontsize=8, loc="upper left"); ax.set_ylabel("Arrivals per month"); ax.margins(x=0.01)
-ax.set_title("Monthly projections of arrivals to December 2030", loc="left", fontsize=10)
-fig.savefig(P("figures/fig9_monthly_projection.png")); plt.close()
+(_noop if BW else ax.set_title)("Monthly projections of arrivals to December 2030", loc="left", fontsize=10)
+fig.savefig(P(FIGDIR + "/fig9_monthly_projection.png")); plt.close()
 
 # ---------- 9. ALOS by market and season; winter vs summer growth ----------
 tot["ALOS"] = tot.nights / tot.arrivals
@@ -376,8 +384,8 @@ for ax, c, col in zip(axes.ravel(), ["Njemačka", "Srbija", "Bosna i Hercegovina
     s = lng[lng.country == c].set_index("date").arrivals.reindex(tot.index, fill_value=0).rolling(12).sum()
     ax.plot(s.index, s, color=col, lw=1.8); ax.set_title(en.get(c, c), loc="left", fontsize=9); ax.margins(x=0.01)
     ax.xaxis.set_major_locator(mdates.YearLocator(2)); ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
-fig.suptitle("Rolling 12-month arrivals by leading foreign market", x=0.01, ha="left", fontsize=10)
-fig.savefig(P("figures/fig10_markets_small_multiples.png")); plt.close()
+(_noop if BW else fig.suptitle)("Rolling 12-month arrivals by leading foreign market", x=0.01, ha="left", fontsize=10)
+fig.savefig(P(FIGDIR + "/fig10_markets_small_multiples.png")); plt.close()
 
 # ---------- 10. summary descriptive stats ----------
 RES["totals"] = dict(months=int(len(tot)), arrivals_total=int(tot.arrivals.sum()), nights_total=int(tot.nights.sum()),
