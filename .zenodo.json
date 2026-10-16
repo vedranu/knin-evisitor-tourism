@@ -1,7 +1,7 @@
 {
-  "title": "Knin e-Visitor tourism data and analysis, 2016-2026: data, code, figures and manuscript",
+  "title": "Knin e-Visitor tourism data and analysis, 2016-2026: data, code and figures",
   "upload_type": "dataset",
-  "description": "Monthly e-Visitor records of tourist arrivals and overnight stays in the Town of Knin, Croatia (January 2016 - September 2026) by country of origin, together with the Python code, figures, tables and manuscript of the paper 'From transit stop to destination? A decade of e-Visitor data on tourism in Knin, Croatia'. Includes the comparison series for Sibenik-Knin County and Croatia from the Croatian Bureau of Statistics (PxWeb table BS_TU12). Raw e-Visitor exports are published with the permission of the Tourist Board of the Town of Knin. Code is released under the MIT licence; data and figures under CC BY 4.0.",
+  "description": "Monthly e-Visitor records of tourist arrivals and overnight stays in the Town of Knin, Croatia (January 2016 - September 2026) by country of origin, together with the Python code, figures, tables and results of the paper 'From transit stop to destination? A decade of e-Visitor data on tourism in Knin, Croatia'. Includes the comparison series for Sibenik-Knin County and Croatia from the Croatian Bureau of Statistics (PxWeb table BS_TU12). The manuscript itself is not included. Raw e-Visitor exports are published with the permission of the Tourist Board of the Town of Knin. Code is released under the MIT licence; data and figures under CC BY 4.0.",
   "creators": [
     {"name": "Uroš, Vedran", "affiliation": "University of Applied Sciences Marko Marulić in Knin; Faculty of Organization and Informatics, University of Zagreb", "orcid": "0009-0007-6568-0827"},
     {"name": "Ćaćić, Marijo", "affiliation": "Faculty of Food Technology and Biotechnology, University of Zagreb; The Town of Knin Administration", "orcid": "0009-0008-7197-4263"},

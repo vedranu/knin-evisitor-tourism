@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 paper/*.pdf
 ~$*
+# manuscript sources and builds are not distributed (journal copyright); only the reference templates are tracked
+paper/*
+!paper/reference.docx
+!paper/thm_reference.docx
